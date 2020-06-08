@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from "react";
+import Landlord from './components/Landlord.js'
 
 function App() {
+  
   return (
-    <div className="App">
-      Hello World
-    </div>
+    <Landlord />
   );
 }
 
