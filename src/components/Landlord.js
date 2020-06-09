@@ -18,32 +18,8 @@ function Landlord() {
 
   return (
     <section className="container">
-      {/* Create a rent receipt
-      <form className="add-landlord" onSubmit={handleLandlordSubmit}>
-        <label name="landlord">
-          Please add a landlord:
-          <input
-            type="text"
-            onChange={handleLandlordChange}
-            name="landlord"
-          ></input>
-          <button type="submit">Add Landlord</button>
-        </label>
-      </form>
-      The landlord's name is: {displayLandlord}
+  
 
-      <form className="add-tenant" onSubmit={handleTenantSubmit}>
-        <label name="tenant" >
-          Please add a tenant:
-          <input
-            type="text"
-            onChange={handleTenantChange}
-            name="tenant"
-          ></input>
-          <button type="submit">Add tenant</button>
-        </label>
-      </form>
-      The landlord's name is: {displayTenant} */}
     <hr></hr>
       <label for="landlord-select">Choose a landlord:
       </label>
