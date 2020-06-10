@@ -62,7 +62,6 @@ const allTenants = {
       address: '200 Highway 7'
   }
 }
-  
 
 function Landlord() {
   const [landlord, setLandlord] = useState('')
@@ -127,7 +126,7 @@ function Landlord() {
         {landlord && getTenants(landlord)}
       </select>
       <hr></hr>
-      <main className="sample-receipt" style={{display: 'flex', flexDirection: 'column'}}>
+      <main className="sample-receipt" style={{display: 'inline-grid'}}>
 
         <date>Date:
           <label for="date-day">
@@ -167,7 +166,7 @@ function Landlord() {
           </select>
         </label>
                 
-
+        <button >Create Rent Receipt!</button>
       </main>
     </section>
   );
