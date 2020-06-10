@@ -17,35 +17,50 @@ const landlords = [
 ];
 
 // list of all tenants is a collection {} of tenants, a list of tenants belonging to a landlord
-const tenants = {
+const tenantsBelongingToALandlord = {
   'Andrew Ly': [
     {
       id: 111,
       tenantName: 'Dimitri Gustavo',
-      rentAmount: 240000,
-      address: '9 Spadina Avenue'
     },
     {
       id: 222,
       tenantName: 'Katerina',
-      rentAmount: 200000,
-      address: '188 Spadina Avenue'
     }
   ],
   'Ha Pham': [
     {
       id: 333,
-      tenantName: 'Rob',
-      rentAmount: 50000,
-      address: '300 Harvie Road'
+      tenantName: 'Rob long',
     },
     {
       id: 444,
       tenantName: 'Senorita',
-      rentAmount: 210000,
-      address: '2000 Highway 7'
     }
   ]
+}
+
+const allTenants = {
+  'Dimitri Gustavo': {
+      id: 111,
+      rentAmount: 240000,
+      address: '9 Spadina Avenue'
+  },
+  'Katerina': {
+      id: 222,
+      rentAmount: 200000,
+      address: '188 Spadina Avenue'
+  },
+  'Rob Long': {
+      id: 333,
+      rentAmount: 50000,
+      address: '300 Harvie Road'
+  },
+  'Senorita': {
+      id: 444,
+      rentAmount: 210000,
+      address: '200 Highway 7'
+  }
 }
   
 
@@ -63,8 +78,8 @@ function Landlord() {
     )
   })
 
-  const getTenants = landlordName => {
-    const result = tenants[landlordName].map(tenant => {
+  const getTenants = (landlordName) => {
+    const result = tenantsBelongingToALandlord[landlordName].map(tenant => {
       return(
       <option key={tenant.id} value={tenant.tenantName}>{tenant.tenantName}</option>
       )
@@ -141,8 +156,8 @@ function Landlord() {
         <text>Landlord: {landlord}</text>
         <text>Tenant: {tenant}</text>
      
-        <address>Address: {}</address>
-        <data className="money">Rent Amount:  ${}</data>
+        <address>Address: {tenant && allTenants[tenant].address}</address>
+        <data className="money">Rent Amount:  ${tenant && allTenants[tenant].rentAmount / 100}</data>
 
         <label for="payment-method">Payment Method    
         <select id="payment-method" name="payment-method" value={paymentMethod} onChange={handlePaymentMethod}>
