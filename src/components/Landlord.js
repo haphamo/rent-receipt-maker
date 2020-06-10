@@ -16,13 +16,38 @@ const landlords = [
   }
 ];
 
+// list of all tenants is a collection {} of tenants, a list of tenants belonging to a landlord
 const tenants = {
-  '123': {
-    tenantName: 'Dimitri Gustavo',
-    rentAmount: 240000,
-    address: '9 Spadina Avenue'
-  }
+  'Andrew Ly': [
+    {
+      id: 111,
+      tenantName: 'Dimitri Gustavo',
+      rentAmount: 240000,
+      address: '9 Spadina Avenue'
+    },
+    {
+      id: 222,
+      tenantName: 'Katerina',
+      rentAmount: 200000,
+      address: '188 Spadina Avenue'
+    }
+  ],
+  'Ha Pham': [
+    {
+      id: 333,
+      tenantName: 'Rob',
+      rentAmount: 50000,
+      address: '300 Harvie Road'
+    },
+    {
+      id: 444,
+      tenantName: 'Senorita',
+      rentAmount: 210000,
+      address: '2000 Highway 7'
+    }
+  ]
 }
+  
 
 function Landlord() {
   const [landlord, setLandlord] = useState('')
@@ -37,6 +62,15 @@ function Landlord() {
     <option key={landlord.id} value={landlord.name}>{landlord.name}</option>
     )
   })
+
+  const getTenants = landlordName => {
+    const result = tenants[landlordName].map(tenant => {
+      return(
+      <option key={tenant.id} value={tenant.tenantName}>{tenant.tenantName}</option>
+      )
+    })
+    return result
+  }
 
   const handleLandlordChange = evt => {
     setLandlord(evt.target.value)
@@ -75,7 +109,7 @@ function Landlord() {
       </label>
       <select name="tenants" id="tenant-select" value={tenant} onChange={handleTenantChange}>
         <option value="">--Please choose a tenant--</option>
-        <option value='Sebastian Gustavo'>Sebastian Gustavo</option>
+        {landlord && getTenants(landlord)}
       </select>
       <hr></hr>
       <main className="sample-receipt" style={{display: 'flex', flexDirection: 'column'}}>
