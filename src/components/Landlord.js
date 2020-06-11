@@ -31,7 +31,7 @@ const tenantsBelongingToALandlord = {
   'Ha Pham': [
     {
       id: 333,
-      tenantName: 'Rob long',
+      tenantName: 'Rob Long',
     },
     {
       id: 444,
@@ -112,14 +112,14 @@ function Landlord() {
     <section className="container">
 
     <hr></hr>
-      <label for="landlord-select">Choose a landlord:
+      <label htmlFor="landlord-select">Choose a landlord:
       </label>
       <select name="landlords" id="landlord-select" value={landlord} onChange={handleLandlordChange}>
         <option value="">--Please choose a landlord--</option>
         {allLandlords}
       </select>
 
-      <label for="tenant-select">Choose a tenant:
+      <label htmlFor="tenant-select">Choose a tenant:
       </label>
       <select name="tenants" id="tenant-select" value={tenant} onChange={handleTenantChange}>
         <option value="">--Please choose a tenant--</option>
@@ -129,21 +129,21 @@ function Landlord() {
       <main className="sample-receipt" style={{display: 'inline-grid'}}>
 
         <date>Date:
-          <label for="date-day">
+          <label htmlFor="date-day">
             <select id="date-day" name="day" value={day} onChange={handleDay}>
               <option value="" disabled>--</option>
               <option value="1">1</option>
               <option value="2">2</option>
             </select>Day
           </label>
-          <label for="date-month">
+          <label htmlFor="date-month">
             <select id="date-month" name="month" value={month} onChange={handleMonth}>
               <option value="" disabled>--</option>
               <option value="Jan">Jan</option>
               <option value="Feb">Feb</option>
             </select>Month
           </label>
-          <label for="date-year">
+          <label htmlFor="date-year">
             <select id="date-year" name="year" value={year} onChange={handleYear}>
               <option value="" disabled>--</option>
               <option value="2019">2019</option>
@@ -158,7 +158,7 @@ function Landlord() {
         <address>Address: {tenant && allTenants[tenant].address}</address>
         <data className="money">Rent Amount:  ${tenant && allTenants[tenant].rentAmount / 100}</data>
 
-        <label for="payment-method">Payment Method    
+        <label htmlFor="payment-method">Payment Method    
         <select id="payment-method" name="payment-method" value={paymentMethod} onChange={handlePaymentMethod}>
             <option value="" disabled>--Please Choose a Method--</option>
             <option value="cash">Cash</option>
