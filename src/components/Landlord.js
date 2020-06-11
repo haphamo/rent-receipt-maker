@@ -44,22 +44,26 @@ const allTenants = {
   'Dimitri Gustavo': {
       id: 111,
       rentAmount: 240000,
-      address: '9 Spadina Avenue'
+      address: '9 Spadina Avenue',
+      payment_method: 'e-transfer'
   },
   'Katerina': {
       id: 222,
       rentAmount: 200000,
-      address: '188 Spadina Avenue'
+      address: '188 Spadina Avenue',
+      payment_method: 'cash '
   },
   'Rob Long': {
       id: 333,
       rentAmount: 50000,
-      address: '300 Harvie Road'
+      address: '300 Harvie Road',
+      payment_method: 'e-transfer'
   },
   'Senorita': {
       id: 444,
       rentAmount: 210000,
-      address: '200 Highway 7'
+      address: '200 Highway 7',
+      payment_method: 'e-transfer'
   }
 }
 
@@ -94,10 +98,6 @@ function Landlord() {
   
   const handleTenantChange = evt => {
     setTenant(evt.target.value)
-  }
-
-  const handlePaymentMethod = evt => {
-    setPaymentMethod(evt.target.value)
   }
 
   const handleDay = evt => {
@@ -160,14 +160,13 @@ function Landlord() {
         <address>Address: {tenant && allTenants[tenant].address}</address>
         <data className="money">Rent Amount:  ${tenant && allTenants[tenant].rentAmount / 100}</data>
 
-        <label htmlFor="payment-method">Payment Method    
-        <select id="payment-method" name="payment-method" value={paymentMethod} onChange={handlePaymentMethod}>
-            <option value="" disabled>--Please Choose a Method--</option>
-            <option value="cash">Cash</option>
-            <option value="etransfer">E-transfer</option>
+        <label htmlFor="payment-method">Payment Method:    
+          <select id="payment-method" name="payment-method" value={tenant ? allTenants[tenant].payment_method : ""}>
+              <option value="">Please choose a tenant</option>
+              <option value="cash">Cash</option>
+              <option value="e-transfer" >E-transfer</option>
           </select>
         </label>
-                
         <button >Create Rent Receipt!</button>
       </main>
     </section>

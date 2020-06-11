@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import Landlord from './components/Landlord.js'
+import React from "react";
+import Receipt from './components/Receipt.js'
 
 function App() {
   
   return (
-    <Landlord />
+    <Receipt />
   );
 }
 
