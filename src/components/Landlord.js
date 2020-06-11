@@ -87,7 +87,9 @@ function Landlord() {
   }
 
   const handleLandlordChange = evt => {
-    setLandlord(evt.target.value)
+    setLandlord(evt.target.value);
+    // when the landlord changes, reset the tenant field
+    setTenant('');
   }
   
   const handleTenantChange = evt => {
