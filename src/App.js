@@ -7,7 +7,7 @@ function App() {
   return (
     <section>
       <section>
-        <CreateProfile /> 
+        <CreateProfile landlord /> 
       </section>
       <Receipt />
     </section>
