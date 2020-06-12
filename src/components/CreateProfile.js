@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { landlords } from '../fixture/fixture.js';
 
-function CreateProfile() {
+function CreateProfile( {landlord} ) {
+  
   const [newLandlord, setNewLandlord] = useState('');
   const [allLandlords, setAllLandlords] = useState(landlords)
 
@@ -10,6 +11,7 @@ function CreateProfile() {
     evt.preventDefault();
     const newLandlordEntry = {id: uuidv4(), name: newLandlord}
     setAllLandlords([...allLandlords, newLandlordEntry])
+    setNewLandlord('')
   }
   
   const handleNewLandlord = (evt) => {
