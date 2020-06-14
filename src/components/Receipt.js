@@ -14,15 +14,6 @@ function Landlord({ allLandlords, allTenants, displayTenants, tenant, setTenant,
     )
   })
 
-  // const getTenants = (landlordName) => {
-  //   const result = tenantsBelongingToALandlord[landlordName].map(tenant => {
-  //     return(
-  //     <option key={tenant.id} value={tenant.tenantName}>{tenant.tenantName}</option>
-  //     )
-  //   })
-  //   return result
-  // }
-
   const handleLandlordChange = evt => {
     setLandlord(evt.target.value);
     // when the landlord changes, reset the tenant field
@@ -57,13 +48,15 @@ function Landlord({ allLandlords, allTenants, displayTenants, tenant, setTenant,
         <option value="">--Please choose a landlord--</option>
         {allLandlordsForSelect}
       </select>
-
-      <label htmlFor="tenant-select">Choose a tenant:
-      </label>
-      <select name="tenants" id="tenant-select" value={tenant} onChange={handleTenantChange}>
-        <option value="">{landlord ? "--Select a Tenant" : "--Please select a landlord first--"}</option>
-        {landlord && displayTenants(landlord)}
-      </select>
+      {landlord && 
+      <section className="tenant-select"> 
+          <label htmlFor="tenant-select">Choose a tenant:
+          </label>
+          <select name="tenants" id="tenant-select" value={tenant} onChange={handleTenantChange}>
+            {displayTenants(landlord)}
+          </select>
+        </section>
+      }
       <hr></hr>
       <main className="sample-receipt" style={{display: 'inline-grid'}}>
 

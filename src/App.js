@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import Receipt from './components/Receipt.js';
 import CreateProfile from './components/CreateProfile.js';
 import { allTenants, landlords, tenantsBelongingToALandlord } from './fixture/fixture.js';
@@ -11,15 +11,28 @@ function App() {
   // from Create
   const [newLandlord, setNewLandlord] = useState('');
   const [allLandlords, setAllLandlords] = useState(landlords)
-
-
+  
+  
+  
   const displayTenants = (landlordName) => {
-    const result = tenantsBelongingToALandlord[landlordName].map(tenant => {
+    
+    if(!tenantsBelongingToALandlord[landlordName]) {
       return(
-      <option key={tenant.id} value={tenant.tenantName}>{tenant.tenantName}</option>
+        <option value="">--No tenants for this landlord, please create one!--</option>
       )
-    })
-    return result
+    } else {
+      const availableTenantOptions = tenantsBelongingToALandlord[landlordName].map(tenant => {
+        return(
+        <option key={tenant.id} value={tenant.tenantName}>{tenant.tenantName}</option>
+        )
+      })
+      return (
+        <Fragment>
+          <option value="">--Select a Tenant--</option>
+          {availableTenantOptions}
+        </Fragment>
+      )
+    }
   }
 
   return (
