@@ -1,16 +1,14 @@
 const landlords = [
   {
     id: 123,
-    name: 'Andrew Ly'
+    name: 'Andrew Ly',
+    address: ['9 Spadina Avenue', '188 Bremnar Road']
   },
   {
     id: 456,
-    name: 'Ha Pham'
+    name: 'Ha Pham',
+    address: ['300 Harvie Road', '200 Highway 7']
   },
-  {
-    id: 789,
-    name: 'Tina Pham'
-  }
 ];
 
 
@@ -48,7 +46,7 @@ const allTenants = {
   'Katerina': {
       id: 222,
       rentAmount: 200000,
-      address: '188 Spadina Avenue',
+      address: '188 Bremnar Avenue',
       payment_method: 'cash '
   },
   'Rob Long': {
