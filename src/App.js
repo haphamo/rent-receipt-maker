@@ -1,6 +1,8 @@
 import React, { useState, Fragment } from "react";
 import Receipt from './components/Receipt.js';
 import CreateProfile from './components/CreateProfile.js';
+import CreateTenant from './components/CreateTenant.js';
+
 import { allTenants, landlords, tenantsBelongingToALandlord } from './fixture/fixture.js';
 
 function App() {
@@ -43,6 +45,7 @@ function App() {
         newLandlord={newLandlord}
         setAllLandlords={setAllLandlords}
       /> 
+
       <Receipt 
         allLandlords={allLandlords}
         allTenants={allTenants}
