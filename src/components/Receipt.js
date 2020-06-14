@@ -1,28 +1,27 @@
 import React, { useState } from "react";
-import {  allTenants, landlords, tenantsBelongingToALandlord } from '../fixture/fixture.js';
 
-function Landlord() {
-  const [landlord, setLandlord] = useState('')
-  const [tenant, setTenant] = useState('')
-  const [paymentMethod, setPaymentMethod] = useState('')
+function Landlord({ allLandlords, allTenants, displayTenants, tenant, setTenant, landlord, setLandlord, paymentMethod, setPaymentMethod }) {
+  // const [landlord, setLandlord] = useState('')
+  // const [tenant, setTenant] = useState('')
+  // const [paymentMethod, setPaymentMethod] = useState('')
   // const [day, setDay] = useState('')
   // const [month, setMonth] = useState('')
   // const [year, setYear] = useState('')
 
-  const allLandlords = landlords.map(landlord => {
+  const allLandlordsForSelect = allLandlords.map(landlord => {
     return(
     <option key={landlord.id} value={landlord.name}>{landlord.name}</option>
     )
   })
 
-  const getTenants = (landlordName) => {
-    const result = tenantsBelongingToALandlord[landlordName].map(tenant => {
-      return(
-      <option key={tenant.id} value={tenant.tenantName}>{tenant.tenantName}</option>
-      )
-    })
-    return result
-  }
+  // const getTenants = (landlordName) => {
+  //   const result = tenantsBelongingToALandlord[landlordName].map(tenant => {
+  //     return(
+  //     <option key={tenant.id} value={tenant.tenantName}>{tenant.tenantName}</option>
+  //     )
+  //   })
+  //   return result
+  // }
 
   const handleLandlordChange = evt => {
     setLandlord(evt.target.value);
@@ -56,14 +55,14 @@ function Landlord() {
       </label>
       <select name="landlords" id="landlord-select" value={landlord} onChange={handleLandlordChange}>
         <option value="">--Please choose a landlord--</option>
-        {allLandlords}
+        {allLandlordsForSelect}
       </select>
 
       <label htmlFor="tenant-select">Choose a tenant:
       </label>
       <select name="tenants" id="tenant-select" value={tenant} onChange={handleTenantChange}>
-        <option value="">--Please choose a tenant--</option>
-        {landlord && getTenants(landlord)}
+        <option value="">{landlord ? "--Select a Tenant" : "--Please select a landlord first--"}</option>
+        {landlord && displayTenants(landlord)}
       </select>
       <hr></hr>
       <main className="sample-receipt" style={{display: 'inline-grid'}}>
@@ -100,7 +99,7 @@ function Landlord() {
 
         <label htmlFor="payment-method">Payment Method:    
           <select id="payment-method" name="payment-method" value={paymentMethod} onChange={handlePaymentMethod}>
-              <option value="" disabled>Please choose a tenant</option>
+              <option value="" disabled>--Please select--</option>
               <option value="cash">Cash</option>
               <option value="e-transfer" >E-transfer</option>
           </select>
