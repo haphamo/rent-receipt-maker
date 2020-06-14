@@ -6,14 +6,13 @@ import CreateTenant from './components/CreateTenant.js';
 import { allTenants, landlords, tenantsBelongingToALandlord } from './fixture/fixture.js';
 
 function App() {
-  // from Receipt
+
   const [landlord, setLandlord] = useState('')
   const [tenant, setTenant] = useState('')
   const [paymentMethod, setPaymentMethod] = useState('')
-  // from Create
+
   const [newLandlord, setNewLandlord] = useState('');
   const [allLandlords, setAllLandlords] = useState(landlords)
-  
   
   
   const displayTenants = (landlordName) => {
