@@ -32,6 +32,7 @@ function CreateProfile({ allLandlords, setNewLandlord, newLandlord, setAllLandlo
   
   return(
     <section>
+      <h2>Create New Landlord Profile</h2>
       <form onSubmit={handleSubmitNewLandlord}>
         <label htmlFor="landlord-name">
           <input id="landlord-name" name="name" value={newLandlord} onChange={handleNewLandlord} type="text" placeholder="Name" required></input>
