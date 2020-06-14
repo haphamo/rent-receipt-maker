@@ -16,7 +16,6 @@ function Landlord({ allLandlords, allTenants, displayTenants, tenant, setTenant,
 
   const handleLandlordChange = evt => {
     setLandlord(evt.target.value);
-    // when the landlord changes, reset the tenant field
     setTenant('');
   }
   
