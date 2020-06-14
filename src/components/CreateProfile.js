@@ -2,17 +2,23 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { landlords } from '../fixture/fixture.js';
 
-function CreateProfile({ allLandlords, setNewLandlord, newLandlord, setAllLandlords }) {
+function CreateProfile({ allLandlords, setNewLandlord, newLandlord, setAllLandlords}) {
+  const [address, setAddress] = useState('')
   
   const handleSubmitNewLandlord = (evt) => {
     evt.preventDefault();
-    const newLandlordEntry = {id: uuidv4(), name: newLandlord}
+    const newLandlordEntry = {id: uuidv4(), name: newLandlord, address}
+
     setAllLandlords([...allLandlords, newLandlordEntry])
     setNewLandlord('')
+    setAddress('')
   }
   
   const handleNewLandlord = (evt) => {
     setNewLandlord(evt.target.value)
+  }
+  const handleAddress = evt => {
+    setAddress(evt.target.value)
   }
 
   const displayAllLandlords = (data) => {
@@ -24,16 +30,14 @@ function CreateProfile({ allLandlords, setNewLandlord, newLandlord, setAllLandlo
     return result
   }
   
-
   return(
     <section>
       <form onSubmit={handleSubmitNewLandlord}>
         <label htmlFor="landlord-name">
-          <input id="landlord-name" name="name" value={newLandlord} onChange={handleNewLandlord}type="text" placeholder="Name"></input>
-          <address><input id="landlord-address" name="address" type="text" placeholder="Address"></input></address>
+          <input id="landlord-name" name="name" value={newLandlord} onChange={handleNewLandlord} type="text" placeholder="Name" required></input>
+          <address><input id="landlord-address" name="address" type="text" placeholder="Address" value={address} onChange={handleAddress} required></input></address>
           <button type="submit">Add A Landlord</button>
         </label>
-
       </form>
     <ul>
       {displayAllLandlords(allLandlords)}
