@@ -41,7 +41,7 @@ function CreateProfile({ allLandlords, setNewLandlord, newLandlord, setAllLandlo
         </label>
       </form>
     <ul>
-      {displayAllLandlords(allLandlords)}
+      {/* {displayAllLandlords(allLandlords)} */}
     </ul>
 
     </section>
