@@ -35,7 +35,7 @@ const allPropertyAddresses = [
   {
     id: 505,
     address: '1234 Bathurst St',
-    landlord: 'David Pham'
+    landlord: 'Ha Pham'
   }
 ]
 
@@ -68,25 +68,25 @@ const allTenants = {
       id: 111,
       rentAmount: 240000,
       address: '9 Spadina Avenue',
-      payment_method: 'e-transfer'
+      paymentMethod: 'e-transfer'
   },
   'Katerina': {
       id: 222,
       rentAmount: 200000,
       address: '188 Bremnar Avenue',
-      payment_method: 'cash '
+      paymentMethod: 'cash '
   },
   'Rob Long': {
       id: 333,
       rentAmount: 50000,
       address: '300 Harvie Road',
-      payment_method: 'e-transfer'
+      paymentMethod: 'e-transfer'
   },
   'Senorita': {
       id: 444,
       rentAmount: 210000,
       address: '200 Highway 7',
-      payment_method: 'e-transfer'
+      paymentMethod: 'e-transfer'
   }
 }
 
