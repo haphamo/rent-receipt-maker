@@ -31,6 +31,11 @@ const allPropertyAddresses = [
     id: 404,
     address: '200 Highway 7',
     landlord: 'Ha Pham'
+  },
+  {
+    id: 505,
+    address: '1234 Bathurst St',
+    landlord: 'David Pham'
   }
 ]
 
@@ -88,5 +93,6 @@ const allTenants = {
 export {
   allTenants,
   landlords,
-  tenantsBelongingToALandlord
+  tenantsBelongingToALandlord,
+  allPropertyAddresses
 }
