@@ -1,18 +1,12 @@
 import React, { useState } from "react";
 
-function Landlord({ allLandlords, allTenants, displayTenants, tenant, setTenant, landlord, setLandlord, paymentMethod, setPaymentMethod }) {
+function Landlord({ allLandlordsForSelect, allTenants, displayTenants, tenant, setTenant, landlord, setLandlord, paymentMethod, setPaymentMethod }) {
   // const [landlord, setLandlord] = useState('')
   // const [tenant, setTenant] = useState('')
   // const [paymentMethod, setPaymentMethod] = useState('')
   // const [day, setDay] = useState('')
   // const [month, setMonth] = useState('')
   // const [year, setYear] = useState('')
-
-  const allLandlordsForSelect = allLandlords.map(landlord => {
-    return(
-    <option key={landlord.id} value={landlord.name}>{landlord.name}</option>
-    )
-  })
 
   const handleLandlordChange = evt => {
     setLandlord(evt.target.value);
@@ -44,7 +38,7 @@ function Landlord({ allLandlords, allTenants, displayTenants, tenant, setTenant,
       <label htmlFor="landlord-select">Choose a landlord:
       </label>
       <select name="landlords" id="landlord-select" value={landlord} onChange={handleLandlordChange}>
-        <option value="">--Please choose a landlord--</option>
+        <option value="" disabled>--Please choose a landlord--</option>
         {allLandlordsForSelect}
       </select>
       {landlord && 

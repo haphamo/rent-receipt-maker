@@ -14,6 +14,11 @@ function App() {
   const [newLandlord, setNewLandlord] = useState('');
   const [allLandlords, setAllLandlords] = useState(landlords)
   
+  const allLandlordsForSelect = allLandlords.map(landlord => {
+    return(
+    <option key={landlord.id} value={landlord.name}>{landlord.name}</option>
+    )
+  })
   
   const displayTenants = (landlordName) => {
     
@@ -44,9 +49,10 @@ function App() {
         newLandlord={newLandlord}
         setAllLandlords={setAllLandlords}
       /> 
-
+      <hr></hr>
+      <CreateTenant allLandlordsForSelect={allLandlordsForSelect}/>
       <Receipt 
-        allLandlords={allLandlords}
+        allLandlordsForSelect={allLandlordsForSelect}
         allTenants={allTenants}
         displayTenants={displayTenants}
         landlord={landlord}
