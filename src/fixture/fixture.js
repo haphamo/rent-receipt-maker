@@ -11,6 +11,28 @@ const landlords = [
   },
 ];
 
+const allPropertyAddresses = [
+  {
+    id: 101,
+    address: '9 Spadina Avenue',
+    landlord: 'Andrew Ly',
+  },
+  {
+    id: 202,
+    address: '188 Bremnar Road',
+    landlord: 'Andrew Ly',
+  },
+  {
+    id: 303,
+    address: '300 Harvie Road',
+    landlord: 'Ha Pham'
+  },
+  {
+    id: 404,
+    address: '200 Highway 7',
+    landlord: 'Ha Pham'
+  }
+]
 
 // list of all tenants is a collection {} of tenants, a list of tenants belonging to a landlord
 const tenantsBelongingToALandlord = {
