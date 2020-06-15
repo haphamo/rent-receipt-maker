@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { allTenants } from '../fixture/fixture.js';
 
-function CreateTenant({ allLandlordsForSelect }) {
+function CreateTenant({ allAddressesForSelect }) {
   const [newTenant, setNewTenant] = useState('')
-  const [landlordOfNewTenant, setLandlordOfNewTenant] = useState('')
+  const [addressOfTenant, setAddressOfTenant] = useState('')
 
   const handleNewTenant = evt => {
     setNewTenant(evt.target.value)
@@ -25,8 +25,8 @@ function CreateTenant({ allLandlordsForSelect }) {
 
         <label htmlFor="which-landlord">
           <select>
-            <option value="">Who is the landlord?</option>
-            {allLandlordsForSelect}
+            <option value="">Which property?</option>
+            {allAddressesForSelect}
           </select>
         </label>
         <button type="submit">Add Tenant</button>
