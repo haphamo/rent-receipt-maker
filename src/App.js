@@ -3,7 +3,7 @@ import Receipt from './components/Receipt.js';
 import CreateProfile from './components/CreateProfile.js';
 import CreateTenant from './components/CreateTenant.js';
 
-import { allTenants, landlords, tenantsBelongingToALandlord } from './fixture/fixture.js';
+import { allTenants, landlords, tenantsBelongingToALandlord, allPropertyAddresses } from './fixture/fixture.js';
 
 function App() {
 
@@ -19,7 +19,12 @@ function App() {
     <option key={landlord.id} value={landlord.name}>{landlord.name}</option>
     )
   })
-  
+  const allAddressesForSelect = allPropertyAddresses.map(address => {
+    return(
+    <option key={address.id} value={address.address}>{address.landlord}: {address.address}</option>
+    )
+  })
+
   const displayTenants = (landlordName) => {
     
     if(!tenantsBelongingToALandlord[landlordName]) {
@@ -50,7 +55,7 @@ function App() {
         setAllLandlords={setAllLandlords}
       /> 
       <hr></hr>
-      <CreateTenant allLandlordsForSelect={allLandlordsForSelect}/>
+      <CreateTenant allAddressesForSelect={allAddressesForSelect}/>
       <Receipt 
         allLandlordsForSelect={allLandlordsForSelect}
         allTenants={allTenants}
