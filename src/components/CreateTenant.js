@@ -26,7 +26,19 @@ function CreateTenant({ allAddressesForSelect }) {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    // alert(`New Tenant: ${newTenant}, Address: ${addressOfTenant}, Rent: ${rent}, Payment Method: ${paymentMethod}`)
+    const newTenantDetails = {
+      id: uuidv4(),
+      rentAmount: rent * 100,
+      // landlord:
+      address: addressOfTenant,
+      paymentMethod: paymentMethod
+    }
+    allTenants[newTenant] = newTenantDetails
+    setNewTenant('')
+    setPaymentMethod('etransfer')
+    setRent('')
+    setAddressOfTenant('')
+    console.log(allTenants)
   }
 
   return(
