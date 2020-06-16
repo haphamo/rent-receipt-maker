@@ -19,6 +19,7 @@ function App() {
     <option key={landlord.id} value={landlord.name}>{landlord.name}</option>
     )
   })
+  
   const allAddressesForSelect = allPropertyAddresses.map(address => {
     return(
     <option key={address.id} value={address.address}>{address.landlord}: {address.address}</option>
@@ -27,23 +28,25 @@ function App() {
 
   const displayTenants = (landlordName) => {
     
-    if(!tenantsBelongingToALandlord[landlordName]) {
-      return(
-        <option value="">--No tenants for this landlord, please create one!--</option>
-      )
-    } else {
-      const availableTenantOptions = tenantsBelongingToALandlord[landlordName].map(tenant => {
+    const tenantList = Object.entries(allTenants).filter(tenant => tenant[1].landlord === landlordName)
+
+    if(tenantList.length > 0) {
+      const availableTenantOptions = tenantList.map(tenant => {
         return(
-        <option key={tenant.id} value={tenant.tenantName}>{tenant.tenantName}</option>
+          <option key={tenant[1].id} value={tenant[0]}>{tenant[0]}</option>
         )
       })
-      return (
+      return(
         <Fragment>
-          <option value="">--Select a Tenant--</option>
+           <option value="">--Select a Tenant--</option>
           {availableTenantOptions}
         </Fragment>
       )
     }
+
+    return(
+      <option value="">--No tenants for this landlord, please create one!--</option>
+    )
   }
 
   return (
