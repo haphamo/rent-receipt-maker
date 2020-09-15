@@ -1,26 +1,32 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
-import { landlords } from '../fixture/fixture.js';
 
-function CreateProfile({ allLandlords, setNewLandlord, newLandlord, setAllLandlords}) {
+function CreateProfile({setFixture, fixture}) {
+  const {landlords, propertyAddresses} = fixture
+  // text inputs
   const [address, setAddress] = useState('')
-  
-  const handleSubmitNewLandlord = (evt) => {
-    evt.preventDefault();
-    const newLandlordEntry = {id: uuidv4(), name: newLandlord, address}
+  const [landlordName, setLandlordName] = useState('')
 
-    setAllLandlords([...allLandlords, newLandlordEntry])
-    setNewLandlord('')
+  const handleSubmitNewLandlord = (evt) => {
+    // this updates the data with new landlord and property entry
+    evt.preventDefault();
+    const newLandlordEntry = {id: uuidv4(), name: landlordName, address: [address]}
+    const newPropertyEntry = {id: uuidv4(), address: address, landlord: landlordName}
+    // update fixture
+    setFixture({...fixture, landlords: [ ...landlords, newLandlordEntry], propertyAddresses: [...propertyAddresses, newPropertyEntry]})
+   
+    // clears text fields
+    setLandlordName('')
     setAddress('')
   }
-  
+
   const handleNewLandlord = (evt) => {
-    setNewLandlord(evt.target.value)
+    setLandlordName(evt.target.value)
   }
   const handleAddress = evt => {
     setAddress(evt.target.value)
   }
-
+  // Temp, just to test if the new entry gets inputted
   const displayAllLandlords = (data) => {
     const result = data.map(landlord => {
       return(
@@ -35,13 +41,14 @@ function CreateProfile({ allLandlords, setNewLandlord, newLandlord, setAllLandlo
       <h2>Create New Landlord Profile</h2>
       <form onSubmit={handleSubmitNewLandlord}>
         <label htmlFor="landlord-name">
-          <input id="landlord-name" name="name" value={newLandlord} onChange={handleNewLandlord} type="text" placeholder="Name" required></input>
+          <input id="landlord-name" name="name" value={landlordName} onChange={handleNewLandlord} type="text" placeholder="Name" required></input>
           <address><input id="landlord-address" name="address" type="text" placeholder="Address" value={address} onChange={handleAddress} required></input></address>
           <button type="submit">Add A Landlord</button>
         </label>
       </form>
     <ul>
-      {/* {displayAllLandlords(allLandlords)} */}
+      <h3>All Landlord Profiles</h3>
+      {displayAllLandlords(fixture.landlords)}
     </ul>
 
     </section>

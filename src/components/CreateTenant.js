@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { allTenants } from '../fixture/fixture.js';
 
-function CreateTenant({ allAddressesForSelect }) {
+// ToDo; Add logic in the rent input to only allow numbers, no text/special charas, spaces
+
+function CreateTenant({ allAddressesForSelect, fixture, setFixture }) {
+  const { tenants } = fixture;
+
   const [newTenant, setNewTenant] = useState('')
+  const [landlord, setLandlord] = useState('')
   const [addressOfTenant, setAddressOfTenant] = useState('')
   const [rent, setRent] = useState('')
   const [paymentMethod, setPaymentMethod] = useState('etransfer')
@@ -13,7 +18,9 @@ function CreateTenant({ allAddressesForSelect }) {
   }
 
   const handleAddressOfTenant = evt => {
+    let idx = evt.target.selectedIndex
     setAddressOfTenant(evt.target.value)
+    setLandlord(evt.target.options[idx].getAttribute('data-landlord'))
   }
 
   const handleRentChange = evt => {
@@ -29,16 +36,17 @@ function CreateTenant({ allAddressesForSelect }) {
     const newTenantDetails = {
       id: uuidv4(),
       rentAmount: rent * 100,
-      // landlord:
+      landlord: landlord,
       address: addressOfTenant,
       paymentMethod: paymentMethod
     }
-    allTenants[newTenant] = newTenantDetails
+
+    setFixture({...fixture, tenants: {...tenants, [`${newTenant}`]: newTenantDetails}})
+  
     setNewTenant('')
     setPaymentMethod('etransfer')
     setRent('')
     setAddressOfTenant('')
-    console.log(allTenants)
   }
 
   return(
