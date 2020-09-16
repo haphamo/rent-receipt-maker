@@ -75,8 +75,8 @@ function CreateProfile({ setFixture, fixture }) {
         </label>
       </form>
       <ul>
-        <h3>All Landlord Profiles</h3>
-        {displayAllLandlords(fixture.landlords)}
+        <h3>All Landlords</h3>
+        {displayAllLandlords(landlords)}
       </ul>
     </section>
   );
