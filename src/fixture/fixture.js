@@ -2,174 +2,73 @@ const data = {
   landlords: [
     {
       id: "123",
-      name: 'Andrew Ly',
-      address: ['9 Spadina Avenue', '188 Bremnar Road']
+      name: "Andrew Ly",
+      address: ["9 Spadina Avenue", "188 Bremnar Road"],
     },
     {
       id: "456",
-      name: 'Ha Pham',
-      address: ['300 Harvie Road', '200 Highway 7']
+      name: "Ha Pham",
+      address: ["300 Harvie Road", "200 Highway 7"],
     },
   ],
   propertyAddresses: [
     {
       id: 101,
-      address: '9 Spadina Avenue',
-      landlord: 'Andrew Ly',
+      address: "9 Spadina Avenue",
+      landlord: "Andrew Ly",
     },
     {
       id: 202,
-      address: '188 Bremnar Road',
-      landlord: 'Andrew Ly',
+      address: "188 Bremnar Road",
+      landlord: "Andrew Ly",
     },
     {
       id: 303,
-      address: '300 Harvie Road',
-      landlord: 'Ha Pham'
+      address: "300 Harvie Road",
+      landlord: "Ha Pham",
     },
     {
       id: 404,
-      address: '200 Highway 7',
-      landlord: 'Ha Pham'
+      address: "200 Highway 7",
+      landlord: "Ha Pham",
     },
     {
       id: 505,
-      address: '1234 Bathurst St',
-      landlord: 'Ha Pham'
-    }
+      address: "1234 Bathurst St",
+      landlord: "Ha Pham",
+    },
   ],
   tenants: {
-    'Dimitri Gustavo': {
+    "Dimitri Gustavo": {
       id: 111,
       rentAmount: 240000,
-      address: '9 Spadina Avenue',
-      landlord: 'Andrew Ly',
-      paymentMethod: 'e-transfer'
+      address: "9 Spadina Avenue",
+      landlord: "Andrew Ly",
+      paymentMethod: "e-transfer",
     },
-    'Katerina': {
-        id: 222,
-        rentAmount: 200000,
-        address: '188 Bremnar Avenue',
-        landlord: 'Andrew Ly',
-        paymentMethod: 'cash '
-    },
-    'Rob Long': {
-        id: 333,
-        rentAmount: 50000,
-        address: '300 Harvie Road',
-        landlord: 'Ha Pham',
-        paymentMethod: 'e-transfer'
-    },
-    'Senorita': {
-        id: 444,
-        rentAmount: 210000,
-        address: '200 Highway 7',
-        landlord: 'Ha Pham',
-        paymentMethod: 'e-transfer'
-    }
-  },
-}
-
-const landlords = [
-  {
-    id: 123,
-    name: 'Andrew Ly',
-    address: ['9 Spadina Avenue', '188 Bremnar Road']
-  },
-  {
-    id: 456,
-    name: 'Ha Pham',
-    address: ['300 Harvie Road', '200 Highway 7']
-  },
-];
-
-const allPropertyAddresses = [
-  {
-    id: 101,
-    address: '9 Spadina Avenue',
-    landlord: 'Andrew Ly',
-  },
-  {
-    id: 202,
-    address: '188 Bremnar Road',
-    landlord: 'Andrew Ly',
-  },
-  {
-    id: 303,
-    address: '300 Harvie Road',
-    landlord: 'Ha Pham'
-  },
-  {
-    id: 404,
-    address: '200 Highway 7',
-    landlord: 'Ha Pham'
-  },
-  {
-    id: 505,
-    address: '1234 Bathurst St',
-    landlord: 'Ha Pham'
-  }
-]
-
-// list of all tenants is a collection {} of tenants, a list of tenants belonging to a landlord
-const tenantsBelongingToALandlord = {
-  'Andrew Ly': [
-    {
-      id: 111,
-      tenantName: 'Dimitri Gustavo',
-    },
-    {
-      id: 222,
-      tenantName: 'Katerina',
-    }
-  ],
-  'Ha Pham': [
-    {
-      id: 333,
-      tenantName: 'Rob Long',
-    },
-    {
-      id: 444,
-      tenantName: 'Senorita',
-    }
-  ]
-};
-
-const allTenants = {
-  'Dimitri Gustavo': {
-      id: 111,
-      rentAmount: 240000,
-      address: '9 Spadina Avenue',
-      landlord: 'Andrew Ly',
-      paymentMethod: 'e-transfer'
-  },
-  'Katerina': {
+    Katerina: {
       id: 222,
       rentAmount: 200000,
-      address: '188 Bremnar Avenue',
-      landlord: 'Andrew Ly',
-      paymentMethod: 'cash '
-  },
-  'Rob Long': {
+      address: "188 Bremnar Avenue",
+      landlord: "Andrew Ly",
+      paymentMethod: "cash ",
+    },
+    "Rob Long": {
       id: 333,
       rentAmount: 50000,
-      address: '300 Harvie Road',
-      landlord: 'Ha Pham',
-      paymentMethod: 'e-transfer'
-  },
-  'Senorita': {
+      address: "300 Harvie Road",
+      landlord: "Ha Pham",
+      paymentMethod: "e-transfer",
+    },
+    Senorita: {
       id: 444,
       rentAmount: 210000,
-      address: '200 Highway 7',
-      landlord: 'Ha Pham',
-      paymentMethod: 'e-transfer'
-  }
-}
+      address: "200 Highway 7",
+      landlord: "Ha Pham",
+      paymentMethod: "e-transfer",
+    },
+  },
+  receipts: {},
+};
 
-export {
-  allTenants,
-  landlords,
-  tenantsBelongingToALandlord,
-  allPropertyAddresses,
-  data
-}
+export default data;
