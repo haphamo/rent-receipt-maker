@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { allTenants } from "../fixture/fixture.js";
 
 // ToDo; Add logic in the rent input to only allow numbers, no text/special charas, spaces
 
