@@ -89,8 +89,8 @@ function Landlord({ fixture, setFixture }) {
       )}
       <hr></hr>
       <main className="sample-receipt" style={{ display: "inline-grid" }}>
-        <text>Landlord: {landlord}</text>
-        <text>Tenant: {tenant}</text>
+        <section>Landlord: {landlord}</section>
+        <section>Tenant: {tenant}</section>
 
         <address>Address: {tenant && tenants[tenant].address}</address>
         <data className="money">
