@@ -13,6 +13,7 @@ function Landlord({ fixture, setFixture }) {
 
   const handleTenantChange = (evt) => {
     setTenant(evt.target.value);
+    setPaymentMethod(tenants[evt.target.value].paymentMethod)
   };
 
   const handlePaymentMethod = (evt) => {
@@ -48,13 +49,15 @@ function Landlord({ fixture, setFixture }) {
         </Fragment>
       );
     }
-
+    
     return (
       <option value="">
         --No tenants for this landlord, please create one!--
       </option>
     );
   };
+
+  // Once tenant is selected, prefill the receipt, 
 
   return (
     <section className="container">
@@ -107,6 +110,7 @@ function Landlord({ fixture, setFixture }) {
             </option>
             <option value="cash">Cash</option>
             <option value="e-transfer">E-transfer</option>
+ 
           </select>
         </label>
         <button>Create Rent Receipt!</button>
