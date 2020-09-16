@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import Card from "./Card.js"
 
 function CreateProfile({ setFixture, fixture }) {
   const { landlords, propertyAddresses } = fixture;
@@ -77,6 +78,7 @@ function CreateProfile({ setFixture, fixture }) {
       <ul>
         <h3>All Landlords</h3>
         {displayAllLandlords(landlords)}
+        <Card />
       </ul>
     </section>
   );
