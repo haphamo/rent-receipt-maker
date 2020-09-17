@@ -93,7 +93,7 @@ function CreateTenant({ fixture, setFixture }) {
           </select>
         </label>
 
-        <label htmlFor="rent-amount">
+        <label htmlFor="rent-amount" style={{display: 'inline-block'}}>
           $
           <input
             id="rent-amount"
