@@ -11,11 +11,12 @@ function CreateProfile({ setFixture, fixture }) {
   const handleSubmitNewLandlord = (evt) => {
     // this updates the data with new landlord and property entry
     evt.preventDefault();
+
     const newLandlordEntry = {
-      id: uuidv4(),
       name: landlordName,
-      address: [address],
+      properties: [address],
     };
+
     const newPropertyEntry = {
       id: uuidv4(),
       address: address,
@@ -24,7 +25,7 @@ function CreateProfile({ setFixture, fixture }) {
 
     setFixture({
       ...fixture,
-      landlords: [...landlords, newLandlordEntry],
+      landlords: {...landlords, [`${uuidv4()}`]: newLandlordEntry},
       propertyAddresses: [...propertyAddresses, newPropertyEntry],
     });
 
@@ -36,9 +37,11 @@ function CreateProfile({ setFixture, fixture }) {
   const handleNewLandlord = (evt) => {
     setLandlordName(evt.target.value);
   };
+
   const handleAddress = (evt) => {
     setAddress(evt.target.value);
   };
+
   // Temp, just to test if the new entry gets inputted
   const displayAllLandlords = (data) => {
     const result = data.map((landlord) => {
@@ -46,7 +49,7 @@ function CreateProfile({ setFixture, fixture }) {
     });
     return result;
   };
-
+  
   return (
     <section>
       <h2>Create New Landlord Profile</h2>
@@ -75,11 +78,11 @@ function CreateProfile({ setFixture, fixture }) {
           <button type="submit">Add A Landlord</button>
         </label>
       </form>
-      <ul>
+      {/* <ul>
         <h3>All Landlords</h3>
         {displayAllLandlords(landlords)}
-        <Card />
-      </ul>
+      </ul> */}
+        <Card fixture={fixture}/>
     </section>
   );
 }
