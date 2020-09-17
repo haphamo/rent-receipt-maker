@@ -12,7 +12,7 @@ function Card({fixture}) {
   };
 
   // test with one entry first
-
+  
   // require all properties for each lanlord
   return(
     <section style={styles.container}>
@@ -21,8 +21,6 @@ function Card({fixture}) {
       <strong>Properties</strong>
       <address>{data.properties[0]}</address>
       <address>{data.properties[1]}</address>
-      
-
     </section>
   )
 };
