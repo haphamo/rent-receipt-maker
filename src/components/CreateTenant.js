@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-
+import Card from './Card.js';
 // ToDo; Add logic in the rent input to only allow numbers, no text/special charas, spaces
 
 function CreateTenant({ fixture, setFixture }) {
@@ -119,7 +119,9 @@ function CreateTenant({ fixture, setFixture }) {
         </label>
         <button type="submit">Add Tenant</button>
       </form>
-      <ul></ul>
+      <section>
+        {/* <Card /> */}
+      </section>
     </section>
   );
 }
