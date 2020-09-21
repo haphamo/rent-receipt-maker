@@ -1,9 +1,12 @@
 import React from "react";
 import Identicon from 'react-identicons';
+import Landlord from "./Receipt";
 
+// TODO: Change the styling, the left section will be avatar and name
 function Card({fixture}) {
-  const data = Object.values(fixture.landlords)[0];
-  console.log(data);
+
+  const data = Object.values(fixture.landlords);
+
   const styles = {
     container: {
       border: 'solid 1px grey',
@@ -11,16 +14,28 @@ function Card({fixture}) {
     }
   };
 
-  // test with one entry first
-  
-  // require all properties for each lanlord
+  // need to add key prop
+  const getAllPropertiesForALandlord = (landlordEntry) => {
+    const { properties } = landlordEntry;
+    return (properties.map(property => (<address>{property}</address>)))
+  };
+
+  const getAllLandlordProfiles = data.map(landlord => {
+    const { name, properties } = landlord;
+
+    return(
+      <section >
+        <Identicon string={name} size="100" bg="#FCB900"/>
+        <section id="landlord-name">{name}</section>
+        <strong>Properties</strong>
+        {getAllPropertiesForALandlord(landlord)}
+      </section>
+    )
+  });
+
   return(
     <section style={styles.container}>
-      <Identicon string={data.name} size="100" bg="#0693E3"/>
-      <section id="landlord-name">{data.name}</section>
-      <strong>Properties</strong>
-      <address>{data.properties[0]}</address>
-      <address>{data.properties[1]}</address>
+      {getAllLandlordProfiles}
     </section>
   )
 };
