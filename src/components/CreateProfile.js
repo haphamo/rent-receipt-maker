@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Card from "./Card.js"
 
+// My profile component
 function CreateProfile({ setFixture, fixture }) {
   const { landlords, propertyAddresses } = fixture;
 
@@ -41,14 +42,6 @@ function CreateProfile({ setFixture, fixture }) {
   const handleAddress = (evt) => {
     setAddress(evt.target.value);
   };
-
-  // Temp, just to test if the new entry gets inputted
-  const displayAllLandlords = (data) => {
-    const result = data.map((landlord) => {
-      return <li key={landlord.id}>{landlord.name}</li>;
-    });
-    return result;
-  };
   
   return (
     <section>
@@ -78,11 +71,7 @@ function CreateProfile({ setFixture, fixture }) {
           <button type="submit">Add A Landlord</button>
         </label>
       </form>
-      {/* <ul>
-        <h3>All Landlords</h3>
-        {displayAllLandlords(landlords)}
-      </ul> */}
-        <Card fixture={fixture}/>
+      <Card fixture={fixture}/>
     </section>
   );
 }

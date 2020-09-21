@@ -12,10 +12,13 @@ function App() {
 
   return (
     <section>
-      <Link to="/">Home</Link>
-      <Link to="landlord">Create a new Landlord</Link>
-      <Link to="tenant">Tenant</Link>
-      <Link to="receipts">Create Receipt</Link>
+      <nav style={{display: 'flex', justifyContent: 'space-around'}}>
+        <Link to="/">Home</Link>
+        <Link to="landlord">Landlords</Link>
+        <Link to="tenant">Tenants</Link>
+        <Link to="receipts">Receipt</Link>
+
+      </nav>
 
       <Router>
         <Home path="/"/>
