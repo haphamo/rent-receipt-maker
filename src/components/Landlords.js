@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 import Card from "./Card.js"
 
 // My profile component
-function CreateProfile({ setFixture, fixture }) {
+function Landlords({ setFixture, fixture }) {
   const { landlords, propertyAddresses } = fixture;
 
   const [address, setAddress] = useState("");
@@ -76,4 +76,4 @@ function CreateProfile({ setFixture, fixture }) {
   );
 }
 
-export default CreateProfile;
+export default Landlords;
