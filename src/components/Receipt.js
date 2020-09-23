@@ -20,10 +20,11 @@ function Landlord({ fixture, setFixture }) {
     setPaymentMethod(evt.target.value);
   };
 
-  const allLandlordsForSelect = landlords.map((landlord) => {
+  const getAllLandlords = Object.entries(landlords);
+  const allLandlordsForSelect = getAllLandlords.map((landlord) => {
     return (
-      <option key={landlord.id} value={landlord.name}>
-        {landlord.name}
+      <option key={landlord[0]} value={landlord[1].name}>
+        {landlord[1].name}
       </option>
     );
   });
