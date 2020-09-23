@@ -4,7 +4,7 @@ import Card from './Card.js';
 // ToDo; Add logic in the rent input to only allow numbers, no text/special charas, spaces
 
 function CreateTenant({ fixture, setFixture }) {
-  const { tenants } = fixture;
+  const { tenants, propertyAddresses } = fixture;
 
   const [newTenant, setNewTenant] = useState("");
   const [landlord, setLandlord] = useState("");
@@ -30,7 +30,9 @@ function CreateTenant({ fixture, setFixture }) {
     setPaymentMethod(evt.target.value);
   };
 
-  const allAddressesForSelect = fixture.propertyAddresses.map((address) => {
+  // TODO: search for properties that don't have an assigned tenant yet
+  // if something needs to be updated, that is done in the card
+  const allAddressesForSelect = propertyAddresses.map((address) => {
     return (
       <option
         key={address.id}
@@ -62,6 +64,21 @@ function CreateTenant({ fixture, setFixture }) {
     setRent("");
     setAddressOfTenant("");
   };
+
+  // display all tenants
+  const getAllTenants = () => (
+    Object.entries(tenants).map(tenant => {
+      const { address, landlord, paymentMethod, rentAmount } = tenant[1];
+      return (
+        <section key={uuidv4()} style={{border: '1px solid grey'}}>
+          <p>Tenant Name: {tenant[0]}</p>
+          <address>{address}</address>
+          <p>Monthly Rent Amount: ${rentAmount / 100}</p>
+        </section>
+      )
+    })
+  );
+
 
   return (
     <section>
@@ -121,6 +138,9 @@ function CreateTenant({ fixture, setFixture }) {
       </form>
       <section>
         {/* <Card /> */}
+        {""}
+        <h2>All Tenants</h2>
+        {getAllTenants()}
       </section>
     </section>
   );
