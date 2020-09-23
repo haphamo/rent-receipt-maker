@@ -1,7 +1,8 @@
 import React, { useState, Fragment } from "react";
 
+// TODO: Add Canvas to hold signature
 function Landlord({ fixture, setFixture }) {
-  const { landlords, tenants } = fixture;
+  const { landlords, tenants, receipts } = fixture;
   const [landlord, setLandlord] = useState("");
   const [tenant, setTenant] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
@@ -58,8 +59,8 @@ function Landlord({ fixture, setFixture }) {
     );
   };
 
-  // Once tenant is selected, prefill the receipt, 
-
+  const getReceipts = Object.entries(receipts);
+  console.log(getReceipts[0][1])
   return (
     <section className="container">
       <hr></hr>
@@ -89,7 +90,7 @@ function Landlord({ fixture, setFixture }) {
         </section>
       )}
       <hr></hr>
-      <main className="sample-receipt" style={{ display: "inline-grid" }}>
+      <main className="create-receipt" style={{ display: "inline-grid" }}>
         <section>Landlord: {landlord}</section>
         <section>Tenant: {tenant}</section>
 
@@ -114,8 +115,19 @@ function Landlord({ fixture, setFixture }) {
  
           </select>
         </label>
+        {/* Submit action on the button */}
         <button>Create Rent Receipt!</button>
       </main>
+      <section className="all-receipts">
+        <section key={getReceipts[0][1].id}>
+          <section>Landlord: {getReceipts[0][1].landlord}</section>
+          <section>Tenant: {getReceipts[0][1].tenant}</section>
+          <section>Address: {getReceipts[0][1].property}</section>
+          <section>Amount: ${getReceipts[0][1].rentAmount / 100}</section>
+          <section>Date Received {getReceipts[0][1].dateCreated}</section>
+          <section>Notes: {getReceipts[0][1].notes}</section>
+        </section>
+      </section>
     </section>
   );
 }
