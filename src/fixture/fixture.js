@@ -69,9 +69,10 @@ const data = {
   receipts: {
     '343': {
       id: '343',
-      landlord: 'Sam',
+      landlord: 'Andrew Ly',
       tenant: 'Katerina',
       property: '9 Spadina Avenue',
+      rentAmount: 200000,
       dateCreated: 'Sept 1, 2020',
       notes: "Sept rent"
     }
