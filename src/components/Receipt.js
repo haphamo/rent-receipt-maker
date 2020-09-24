@@ -2,28 +2,38 @@ import React, { useState, Fragment } from "react";
 
 // TODO: Add Canvas to hold signature
 function Landlord({ fixture, setFixture }) {
+
   const { landlords, tenants, receipts } = fixture;
-  const [landlord, setLandlord] = useState("");
-  const [tenant, setTenant] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("");
-  const [memo, setMemo] = useState("");
+  
+  // the initial state is receipts from fixture data
+  const [allReceipts, setAllReceipts] = useState(receipts)
+
+  const newReceiptEntry = {
+    landlord: "",
+    tenant: "",
+    paymentMethod: "",
+    memo: ""
+  };
+
+  const [newReceipt, setNewReceipt] = useState(newReceiptEntry);
+
+  const {landlord, tenant, memo, paymentMethod} = newReceipt;
 
   const handleLandlordChange = (evt) => {
-    setLandlord(evt.target.value);
-    setTenant("");
+    setNewReceipt({...newReceipt, landlord: evt.target.value, tenant: ""})
   };
 
   const handleTenantChange = (evt) => {
-    setTenant(evt.target.value);
-    setPaymentMethod(tenants[evt.target.value].paymentMethod);
+    setNewReceipt({...newReceipt, tenant: evt.target.value, paymentMethod: tenants[evt.target.value].paymentMethod})
   };
 
+  // this allows the user to change the payment method if it is different from what was initially set up
   const handlePaymentMethod = (evt) => {
-    setPaymentMethod(evt.target.value);
+    setNewReceipt({...newReceipt, paymentMethod: evt.target.value})
   };
 
   const handleMemoChange = (evt) => {
-    setMemo(evt.target.value);
+    setNewReceipt({...newReceipt, memo: evt.target.value})
   };
 
   const getAllLandlords = Object.entries(landlords);
@@ -66,7 +76,7 @@ function Landlord({ fixture, setFixture }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    alert('Submitted!')
+    setAllReceipts({...allReceipts, newReceipt})
   };
 
   const getReceipts = Object.entries(receipts);
@@ -88,7 +98,7 @@ function Landlord({ fixture, setFixture }) {
           </option>
           {allLandlordsForSelect}
         </select>
-        {landlord && (
+        {newReceipt.landlord && (
           <section className="tenant-select">
             <label htmlFor="tenant-select">Choose a tenant:</label>
             <select
