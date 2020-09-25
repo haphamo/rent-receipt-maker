@@ -10,7 +10,7 @@ function CreateTenant({ fixture, setFixture }) {
   const [landlord, setLandlord] = useState("");
   const [addressOfTenant, setAddressOfTenant] = useState("");
   const [rent, setRent] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("etransfer");
+  const [paymentMethod, setPaymentMethod] = useState("e-transfer");
 
   const handleNewTenant = (evt) => {
     setNewTenant(evt.target.value);
@@ -60,7 +60,7 @@ function CreateTenant({ fixture, setFixture }) {
     });
 
     setNewTenant("");
-    setPaymentMethod("etransfer");
+    setPaymentMethod("e-transfer");
     setRent("");
     setAddressOfTenant("");
   };
@@ -130,7 +130,7 @@ function CreateTenant({ fixture, setFixture }) {
             value={paymentMethod}
             onChange={handlePaymentMethodChange}
           >
-            <option value="etransfer">E-transfer</option>
+            <option value="e-transfer">E-transfer</option>
             <option value="cash">Cash</option>
           </select>
         </label>
