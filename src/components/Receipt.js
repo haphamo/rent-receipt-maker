@@ -13,7 +13,9 @@ function Landlord({ fixture, setFixture }) {
     landlord: "",
     tenant: "",
     paymentMethod: "",
-    memo: ""
+    memo: "",
+    address: "",
+    rentAmount: 0
   };
 
   const [newReceipt, setNewReceipt] = useState(newReceiptEntry);
@@ -25,7 +27,7 @@ function Landlord({ fixture, setFixture }) {
   };
 
   const handleTenantChange = (evt) => {
-    setNewReceipt({...newReceipt, tenant: evt.target.value, paymentMethod: tenants[evt.target.value].paymentMethod})
+    setNewReceipt({...newReceipt, tenant: evt.target.value, paymentMethod: tenants[evt.target.value].paymentMethod, address: tenants[evt.target.value].address, rentAmount: tenants[evt.target.value].rentAmount, memo: memo})
   };
 
   // this allows the user to change the payment method if it is different from what was initially set up
@@ -75,9 +77,23 @@ function Landlord({ fixture, setFixture }) {
     );
   };
 
+  const displayAllReceipts = () => (
+    Object.entries(receipts).map(receipt => {
+      return(
+        <section key={receipt[0]} style={{margin: '1em 0em'}}>
+          <section>Landlord: {receipt[1].landlord}</section>
+          <section>Tenant: {receipt[1].tenant}</section>
+          <section>Address: {receipt[1].address}</section>
+          <section>Amount: ${receipt[1].rentAmount / 100}</section>
+          <section>Date Received {receipt[1].dateCreated}</section>
+          <section>Memo: {receipt[1].memo}</section>
+        </section>
+      )
+    })
+  );
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
     setFixture({...fixture, receipts: { ...receipts, [`${uuidv4()}`]: newReceipt}})
     // clear fields
     setNewReceipt({landlord: "",
@@ -85,8 +101,6 @@ function Landlord({ fixture, setFixture }) {
     paymentMethod: "",
     memo: ""})
   };
-
-  const getReceipts = Object.entries(receipts);
 
   return (
     <section className="container" style={{ margin: "1em" }}>
@@ -160,14 +174,7 @@ function Landlord({ fixture, setFixture }) {
 
       <hr></hr>
       <section className="all-receipts">
-        <section key={getReceipts[0][1].id}>
-          <section>Landlord: {getReceipts[0][1].landlord}</section>
-          <section>Tenant: {getReceipts[0][1].tenant}</section>
-          <section>Address: {getReceipts[0][1].property}</section>
-          <section>Amount: ${getReceipts[0][1].rentAmount / 100}</section>
-          <section>Date Received {getReceipts[0][1].dateCreated}</section>
-          <section>Memo: {getReceipts[0][1].notes}</section>
-        </section>
+        {displayAllReceipts()}
       </section>
     </section>
   );
