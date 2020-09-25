@@ -71,10 +71,10 @@ const data = {
       id: '343',
       landlord: 'Andrew Ly',
       tenant: 'Katerina',
-      property: '9 Spadina Avenue',
+      address: '9 Spadina Avenue',
       rentAmount: 200000,
       dateCreated: 'Sept 1, 2020',
-      notes: "Sept rent"
+      memo: "Sept rent"
     }
   },
 };
