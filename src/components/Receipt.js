@@ -1,4 +1,5 @@
 import React, { useState, Fragment } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 // TODO: Add Canvas to hold signature
 function Landlord({ fixture, setFixture }) {
@@ -76,7 +77,13 @@ function Landlord({ fixture, setFixture }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    setAllReceipts({...allReceipts, newReceipt})
+
+    setFixture({...fixture, receipts: { ...receipts, [`${uuidv4()}`]: newReceipt}})
+    // clear fields
+    setNewReceipt({landlord: "",
+    tenant: "",
+    paymentMethod: "",
+    memo: ""})
   };
 
   const getReceipts = Object.entries(receipts);
