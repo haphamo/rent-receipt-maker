@@ -1,8 +1,11 @@
 import React, { useState, Fragment } from "react";
 import { v4 as uuidv4 } from "uuid";
+import DatePicker from "react-datepicker";
+import 'react-datepicker/dist/react-datepicker.css';
 
 // TODO: Add Canvas to hold signature
 function Landlord({ fixture, setFixture }) {
+  const [dateReceived, setDateReceived] = useState(new Date());
 
   const { landlords, tenants, receipts } = fixture;
   
@@ -104,6 +107,22 @@ function Landlord({ fixture, setFixture }) {
 
   return (
     <section className="container" style={{ margin: "1em" }}>
+      <section  >
+        <DatePicker 
+          popperPlacement="right-start"
+          popperModifiers={(
+            'offset': {
+              enabled: true,
+              offset: "4em, 2em"
+            })}
+          dateFormat="MMMM d, yyyy"
+          selected={dateReceived}
+          
+          fixedHeight
+          onChange={date => setDateReceived(date)}
+        />
+
+      </section>
       <hr></hr>
       <form onSubmit={handleSubmit}>
         <label htmlFor="landlord-select">Choose a landlord:</label>
