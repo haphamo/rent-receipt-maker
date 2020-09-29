@@ -5,7 +5,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 // TODO: Add Canvas to hold signature
 function Landlord({ fixture, setFixture }) {
-  const [dateReceived, setDateReceived] = useState(new Date());
+
+  const [dateReceived, setDateReceived] = useState(null);
 
   const { landlords, tenants, receipts } = fixture;
   
@@ -18,19 +19,19 @@ function Landlord({ fixture, setFixture }) {
     paymentMethod: "",
     memo: "",
     address: "",
-    rentAmount: 0
+    rentAmount: ""
   };
 
   const [newReceipt, setNewReceipt] = useState(newReceiptEntry);
 
-  const {landlord, tenant, memo, paymentMethod} = newReceipt;
+  const {landlord, tenant, memo, paymentMethod, rentAmount} = newReceipt;
 
   const handleLandlordChange = (evt) => {
     setNewReceipt({...newReceipt, landlord: evt.target.value, tenant: ""})
   };
 
   const handleTenantChange = (evt) => {
-    setNewReceipt({...newReceipt, tenant: evt.target.value, paymentMethod: tenants[evt.target.value].paymentMethod, address: tenants[evt.target.value].address, rentAmount: tenants[evt.target.value].rentAmount, memo: memo})
+    setNewReceipt({...newReceipt, tenant: evt.target.value, paymentMethod: tenants[evt.target.value].paymentMethod, address: tenants[evt.target.value].address, rentAmount: tenants[evt.target.value].rentAmount / 100, memo: memo})
   };
 
   // this allows the user to change the payment method if it is different from what was initially set up
@@ -71,7 +72,7 @@ function Landlord({ fixture, setFixture }) {
           {availableTenantOptions}
         </Fragment>
       );
-    }
+    };
 
     return (
       <option value="">
@@ -95,6 +96,11 @@ function Landlord({ fixture, setFixture }) {
     })
   );
 
+  const handleAmountChange = (evt) => {
+    console.log(evt.target.value)
+    setNewReceipt({...newReceipt, rentAmount: evt.target.value})
+  };
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     setFixture({...fixture, receipts: { ...receipts, [`${uuidv4()}`]: newReceipt}})
@@ -107,37 +113,23 @@ function Landlord({ fixture, setFixture }) {
 
   return (
     <section className="container" style={{ margin: "1em" }}>
-      <section  >
-        <DatePicker 
-          popperPlacement="right-start"
-          popperModifiers={(
-            'offset': {
-              enabled: true,
-              offset: "4em, 2em"
-            })}
-          dateFormat="MMMM d, yyyy"
-          selected={dateReceived}
-          
-          fixedHeight
-          onChange={date => setDateReceived(date)}
-        />
-
-      </section>
       <hr></hr>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="landlord-select">Choose a landlord:</label>
-        <select
-          required
-          name="landlords"
-          id="landlord-select"
-          value={landlord}
-          onChange={handleLandlordChange}
-        >
-          <option value="" disabled>
-            --Please choose a landlord--
-          </option>
-          {allLandlordsForSelect}
-        </select>
+        <section className="landlord-container" style={{marginBottom: '1em'}}>
+          <label htmlFor="landlord-select">Choose a landlord:</label>
+          <select
+            required
+            name="landlords"
+            id="landlord-select"
+            value={landlord}
+            onChange={handleLandlordChange}
+          >
+            <option value="" disabled>
+              --Please choose a landlord--
+            </option>
+            {allLandlordsForSelect}
+          </select>
+        </section>
         {newReceipt.landlord && (
           <section className="tenant-select">
             <label htmlFor="tenant-select">Choose a tenant:</label>
@@ -154,13 +146,37 @@ function Landlord({ fixture, setFixture }) {
         )}
         <hr></hr>
         <section className="create-receipt" style={{ display: "inline-grid" }}>
+          <section>
+            <DatePicker 
+              placeholderText="Date"
+              popperPlacement="right-start"
+              popperModifiers={(
+                'offset': {
+                  enabled: true,
+                  offset: "4em, 2em"
+                })}
+              dateFormat="MMMM d, yyyy"
+              selected={dateReceived}
+              fixedHeight
+              onChange={date => setDateReceived(date)}
+            />
+          </section>
           <section>Landlord: {landlord}</section>
           <section>Tenant: {tenant}</section>
 
           <address>Address: {tenant && tenants[tenant].address}</address>
-          <data className="money">
-            Rent Amount: ${tenant && tenants[tenant].rentAmount / 100}
-          </data>
+          {/* Make the amount updatable */}
+          <section className="money">
+            Rent Amount: $ 
+            {/* ${tenant && tenants[tenant].rentAmount / 100} */}
+            <input id="payment-amount"
+              // value={tenant && tenants[tenant].rentAmount / 100}
+              value={rentAmount}
+              type="number"
+              onChange={handleAmountChange}
+              placeholder={rentAmount / 100}
+            />
+          </section>
 
           <label htmlFor="payment-method">
             Payment Method:
