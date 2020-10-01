@@ -73,7 +73,7 @@ const data = {
       tenant: 'Katerina',
       address: '9 Spadina Avenue',
       rentAmount: 200000,
-      dateCreated: 'Sept 1, 2020',
+      dateReceived: 'Sept 01 2020',
       memo: "Sept rent"
     }
   },
