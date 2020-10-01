@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import './App.css'
 import { Router, Link } from "@reach/router";
 import Receipt from "./components/Receipt.js";
 import Home from "./components/Home.js";
