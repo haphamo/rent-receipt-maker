@@ -7,7 +7,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 function Landlord({ fixture, setFixture }) {
 
   const [dateReceived, setDateReceived] = useState(null);
-
   const { landlords, tenants, receipts } = fixture;
   
   // the initial state is receipts from fixture data
@@ -19,7 +18,8 @@ function Landlord({ fixture, setFixture }) {
     paymentMethod: "",
     memo: "",
     address: "",
-    rentAmount: ""
+    rentAmount: "",
+    dateReceived: ""
   };
 
   const [newReceipt, setNewReceipt] = useState(newReceiptEntry);
@@ -30,8 +30,9 @@ function Landlord({ fixture, setFixture }) {
     setNewReceipt({...newReceipt, landlord: evt.target.value, tenant: ""})
   };
 
+
   const handleTenantChange = (evt) => {
-    setNewReceipt({...newReceipt, tenant: evt.target.value, paymentMethod: tenants[evt.target.value].paymentMethod, address: tenants[evt.target.value].address, rentAmount: tenants[evt.target.value].rentAmount / 100, memo: memo})
+    setNewReceipt({...newReceipt, tenant: evt.target.value, paymentMethod: tenants[evt.target.value].paymentMethod, address: tenants[evt.target.value].address, rentAmount: tenants[evt.target.value].rentAmount, memo: memo, dateReceived: dateReceived})
   };
 
   // this allows the user to change the payment method if it is different from what was initially set up
@@ -89,7 +90,7 @@ function Landlord({ fixture, setFixture }) {
           <section>Tenant: {receipt[1].tenant}</section>
           <section>Address: {receipt[1].address}</section>
           <section>Amount: ${receipt[1].rentAmount / 100}</section>
-          <section>Date Received {receipt[1].dateCreated}</section>
+          <section>Date Received {receipt[1].dateReceived}</section>
           <section>Memo: {receipt[1].memo}</section>
         </section>
       )
@@ -97,7 +98,6 @@ function Landlord({ fixture, setFixture }) {
   );
 
   const handleAmountChange = (evt) => {
-    console.log(evt.target.value)
     setNewReceipt({...newReceipt, rentAmount: evt.target.value})
   };
 
@@ -108,7 +108,8 @@ function Landlord({ fixture, setFixture }) {
     setNewReceipt({landlord: "",
     tenant: "",
     paymentMethod: "",
-    memo: ""})
+    memo: "",
+    rentAmount: ""})
   };
 
   return (
@@ -148,6 +149,7 @@ function Landlord({ fixture, setFixture }) {
         <section className="create-receipt" style={{ display: "inline-grid" }}>
           <section>
             <DatePicker 
+              required
               placeholderText="Date"
               popperPlacement="right-start"
               popperModifiers={(
@@ -171,7 +173,7 @@ function Landlord({ fixture, setFixture }) {
             {/* ${tenant && tenants[tenant].rentAmount / 100} */}
             <input id="payment-amount"
               // value={tenant && tenants[tenant].rentAmount / 100}
-              value={rentAmount}
+              value={`${(rentAmount / 100)}`}
               type="number"
               onChange={handleAmountChange}
               placeholder={rentAmount / 100}
