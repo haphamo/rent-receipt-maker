@@ -1,16 +1,14 @@
 import React, { useState, Fragment } from "react";
+import { Link } from "@reach/router";
 import { v4 as uuidv4 } from "uuid";
 import DatePicker from "react-datepicker";
-import 'react-datepicker/dist/react-datepicker.css';
+import "react-datepicker/dist/react-datepicker.css";
 
 // TODO: Add Canvas to hold signature
+// TODO: Format input for rent amount to have 2 decimal places
 function Landlord({ fixture, setFixture }) {
-
-  const [dateReceived, setDateReceived] = useState(null);
+  const [date, setDate] = useState(null);
   const { landlords, tenants, receipts } = fixture;
-  
-  // the initial state is receipts from fixture data
-  const [allReceipts, setAllReceipts] = useState(receipts)
 
   const newReceiptEntry = {
     landlord: "",
@@ -19,30 +17,44 @@ function Landlord({ fixture, setFixture }) {
     memo: "",
     address: "",
     rentAmount: "",
-    dateReceived: ""
+    dateReceived: "",
   };
 
   const [newReceipt, setNewReceipt] = useState(newReceiptEntry);
-
-  const {landlord, tenant, memo, paymentMethod, rentAmount} = newReceipt;
+  
+  const { landlord, tenant, memo, paymentMethod, rentAmount } = newReceipt;
 
   const handleLandlordChange = (evt) => {
-    setNewReceipt({...newReceipt, landlord: evt.target.value, tenant: ""})
+    setNewReceipt({ ...newReceipt, landlord: evt.target.value, tenant: "" });
   };
 
-
   const handleTenantChange = (evt) => {
-    setNewReceipt({...newReceipt, tenant: evt.target.value, paymentMethod: tenants[evt.target.value].paymentMethod, address: tenants[evt.target.value].address, rentAmount: tenants[evt.target.value].rentAmount, memo: memo, dateReceived: dateReceived})
+    // handles front end
+    setNewReceipt({
+      ...newReceipt,
+      tenant: evt.target.value,
+      paymentMethod: tenants[evt.target.value].paymentMethod,
+      address: tenants[evt.target.value].address,
+      rentAmount: tenants[evt.target.value].rentAmount / 100,
+    });
   };
 
   // this allows the user to change the payment method if it is different from what was initially set up
   const handlePaymentMethod = (evt) => {
-    setNewReceipt({...newReceipt, paymentMethod: evt.target.value})
+    setNewReceipt({ ...newReceipt, paymentMethod: evt.target.value });
   };
 
   const handleMemoChange = (evt) => {
-    setNewReceipt({...newReceipt, memo: evt.target.value})
+    setNewReceipt({ ...newReceipt, memo: evt.target.value });
   };
+
+  const handleDateChange = (date) => {
+    // handles front end date change
+    setDate(date)
+    // format date data to be sent to backend
+    const formattedDate = date.toString().split(' ').slice(1, 4).join(' ');
+    setNewReceipt({ ...newReceipt, dateReceived: formattedDate });
+  }
 
   const getAllLandlords = Object.entries(landlords);
   const allLandlordsForSelect = getAllLandlords.map((landlord) => {
@@ -73,7 +85,7 @@ function Landlord({ fixture, setFixture }) {
           {availableTenantOptions}
         </Fragment>
       );
-    };
+    }
 
     return (
       <option value="">
@@ -82,41 +94,46 @@ function Landlord({ fixture, setFixture }) {
     );
   };
 
-  const displayAllReceipts = () => (
-    Object.entries(receipts).map(receipt => {
-      return(
-        <section key={receipt[0]} style={{margin: '1em 0em'}}>
+  const displayAllReceipts = () =>
+    Object.entries(receipts).map((receipt) => {
+      return (
+        <section key={receipt[0]} style={{ margin: "1em 0em" }}>
           <section>Landlord: {receipt[1].landlord}</section>
           <section>Tenant: {receipt[1].tenant}</section>
           <section>Address: {receipt[1].address}</section>
           <section>Amount: ${receipt[1].rentAmount / 100}</section>
-          <section>Date Received {receipt[1].dateReceived}</section>
+          <section>Date Received: {receipt[1].dateReceived}</section>
           <section>Memo: {receipt[1].memo}</section>
         </section>
-      )
-    })
-  );
+      );
+    });
 
   const handleAmountChange = (evt) => {
-    setNewReceipt({...newReceipt, rentAmount: evt.target.value})
+    setNewReceipt({ ...newReceipt, rentAmount: evt.target.value });
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    setFixture({...fixture, receipts: { ...receipts, [`${uuidv4()}`]: newReceipt}})
+    // Reformat the rent amount to remain consistent with backend
+    setFixture({
+      ...fixture,
+      receipts: { ...receipts, [`${uuidv4()}`]: {...newReceipt, rentAmount: rentAmount * 100} },
+    });
     // clear fields
-    setNewReceipt({landlord: "",
-    tenant: "",
-    paymentMethod: "",
-    memo: "",
-    rentAmount: ""})
+    setNewReceipt({
+      landlord: "",
+      tenant: "",
+      paymentMethod: "",
+      memo: "",
+      rentAmount: "",
+    });
   };
 
   return (
     <section className="container" style={{ margin: "1em" }}>
       <hr></hr>
       <form onSubmit={handleSubmit}>
-        <section className="landlord-container" style={{marginBottom: '1em'}}>
+        <section className="landlord-container" style={{ marginBottom: "1em" }}>
           <label htmlFor="landlord-select">Choose a landlord:</label>
           <select
             required
@@ -130,6 +147,8 @@ function Landlord({ fixture, setFixture }) {
             </option>
             {allLandlordsForSelect}
           </select>
+          <Link to="/landlord"><button>Create a new Landlord</button></Link>
+          
         </section>
         {newReceipt.landlord && (
           <section className="tenant-select">
@@ -148,19 +167,20 @@ function Landlord({ fixture, setFixture }) {
         <hr></hr>
         <section className="create-receipt" style={{ display: "inline-grid" }}>
           <section>
-            <DatePicker 
+            <DatePicker
               required
               placeholderText="Date"
               popperPlacement="right-start"
-              popperModifiers={(
-                'offset': {
+              popperModifiers={
+                ("offset": {
                   enabled: true,
-                  offset: "4em, 2em"
-                })}
+                  offset: "4em, 2em",
+                })
+              }
               dateFormat="MMMM d, yyyy"
-              selected={dateReceived}
+              selected={date}
               fixedHeight
-              onChange={date => setDateReceived(date)}
+              onChange={date => handleDateChange(date)}
             />
           </section>
           <section>Landlord: {landlord}</section>
@@ -169,14 +189,14 @@ function Landlord({ fixture, setFixture }) {
           <address>Address: {tenant && tenants[tenant].address}</address>
           {/* Make the amount updatable */}
           <section className="money">
-            Rent Amount: $ 
-            {/* ${tenant && tenants[tenant].rentAmount / 100} */}
-            <input id="payment-amount"
-              // value={tenant && tenants[tenant].rentAmount / 100}
-              value={`${(rentAmount / 100)}`}
+            Rent Amount: ${/* ${tenant && tenants[tenant].rentAmount / 100} */}
+            <input
+              id="payment-amount"
+              // value={tenant ? rentAmount / 100 : rentAmount * 100}
+              value={`${rentAmount}`}
               type="number"
               onChange={handleAmountChange}
-              placeholder={rentAmount / 100}
+              // placeholder={rentAmount / 100}
             />
           </section>
 
@@ -204,15 +224,12 @@ function Landlord({ fixture, setFixture }) {
               onChange={handleMemoChange}
             />
           </label>
-          {/* Submit action on the button */}
           <button type="submit">Create Rent Receipt!</button>
         </section>
       </form>
 
       <hr></hr>
-      <section className="all-receipts">
-        {displayAllReceipts()}
-      </section>
+      <section className="all-receipts">{displayAllReceipts()}</section>
     </section>
   );
 }
