@@ -23,7 +23,7 @@ function Card({fixture}) {
 
   const getAllLandlordProfiles = data.map(landlord => {
     const { name, properties } = landlord;
-
+    // should contain actions to add a tenant and create a receipt
     return(
       <section key={uuidv4()}>
         <Identicon string={name} size="100" bg="#FCB900"/>
