@@ -1,43 +1,42 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Card from './Card.js';
+import Landlord from "./Receipt.js";
 // ToDo; Add logic in the rent input to only allow numbers, no text/special charas, spaces
 
 function CreateTenant({ fixture, setFixture }) {
-  const { tenants, propertyAddresses } = fixture;
+  const { tenants, propertyAddresses, landlords } = fixture;
 
   const intitialState = {
+    id: uuidv4(),
     tenant: "",
     landlord: "",
-    addressOfTenant: "",
-    rennt: "",
+    address: "",
+    rentAmount: "",
     paymentMethod: "e-transfer"
   };
 
   const [newTenantEntry, setNewTenantEntry] = useState(intitialState);
+  const { tenant, landlord, address, rentAmount, paymentMethod } = newTenantEntry;
 
-  const [newTenant, setNewTenant] = useState("");
-  const [landlord, setLandlord] = useState("");
-  const [addressOfTenant, setAddressOfTenant] = useState("");
-  const [rent, setRent] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("e-transfer");
-
-  const handleNewTenant = (evt) => {
-    setNewTenant(evt.target.value);
-  };
-
-  const handleAddressOfTenant = (evt) => {
-    let idx = evt.target.selectedIndex;
-    setAddressOfTenant(evt.target.value);
-    setLandlord(evt.target.options[idx].getAttribute("data-landlord"));
-  };
-
-  const handleRentChange = (evt) => {
-    setRent(evt.target.value);
-  };
-
-  const handlePaymentMethodChange = (evt) => {
-    setPaymentMethod(evt.target.value);
+  // Create one function to handle text field changes
+  const handleChange = (evt) => {
+    const { name, value } = evt.target;
+    switch (name) {
+      case 'name':
+        setNewTenantEntry({...newTenantEntry, tenant: value});
+        break;
+      case 'property-address':
+        let idx = evt.target.selectedIndex;
+        setNewTenantEntry({...newTenantEntry, address: value, landlord: evt.target.options[idx].getAttribute("data-landlord")});
+        break;
+      case 'rent-amount':
+        setNewTenantEntry({...newTenantEntry, rentAmount: value});
+        break;
+      case 'payment-method':
+        setNewTenantEntry({...newTenantEntry, paymentMethod: value});
+        break;
+    }
   };
 
   // TODO: search for properties that don't have an assigned tenant yet
@@ -56,26 +55,14 @@ function CreateTenant({ fixture, setFixture }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    const newTenantDetails = {
-      id: uuidv4(),
-      rentAmount: rent * 100,
-      landlord: landlord,
-      address: addressOfTenant,
-      paymentMethod: paymentMethod,
-    };
-
     setFixture({
       ...fixture,
-      tenants: { ...tenants, [`${newTenant}`]: newTenantDetails },
+      tenants: { ...tenants, [`${tenant}`]: {...newTenantEntry, rentAmount: rentAmount * 100} },
     });
-
-    setNewTenant("");
-    setPaymentMethod("e-transfer");
-    setRent("");
-    setAddressOfTenant("");
+    // Clear fields
+    setNewTenantEntry(intitialState)
   };
 
-  // display all tenants
   const getAllTenants = () => (
     Object.entries(tenants).map(tenant => {
       const { address, landlord, paymentMethod, rentAmount } = tenant[1];
@@ -89,17 +76,16 @@ function CreateTenant({ fixture, setFixture }) {
     })
   );
 
-
   return (
     <section>
       <h2>Create New Tenant Profile</h2>
       <form onSubmit={handleSubmit}>
         <label htmlFor="tenant-name">
           <input
-            id="tenant-name"
+            id="tenant"
             name="name"
-            value={newTenant}
-            onChange={handleNewTenant}
+            value={tenant}
+            onChange={handleChange}
             type="text"
             placeholder="Tenant Name"
             required
@@ -110,8 +96,8 @@ function CreateTenant({ fixture, setFixture }) {
           <select
             name="property-address"
             id="property-address"
-            value={addressOfTenant}
-            onChange={handleAddressOfTenant}
+            value={address}
+            onChange={handleChange}
           >
             <option value="" disabled>
               Which property?
@@ -125,10 +111,11 @@ function CreateTenant({ fixture, setFixture }) {
           <input
             id="rent-amount"
             type="number"
+            name="rent-amount"
             placeholder="500"
             min="1"
-            value={rent}
-            onChange={handleRentChange}
+            value={rentAmount}
+            onChange={handleChange}
             required
           ></input>
         </label>
@@ -138,7 +125,7 @@ function CreateTenant({ fixture, setFixture }) {
             name="payment-method"
             id="payment-method"
             value={paymentMethod}
-            onChange={handlePaymentMethodChange}
+            onChange={handleChange}
           >
             <option value="e-transfer">E-transfer</option>
             <option value="cash">Cash</option>
