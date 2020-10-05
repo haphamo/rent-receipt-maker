@@ -6,6 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 // TODO: Add Canvas to hold signature
 // TODO: Format input for rent amount to have 2 decimal places
+// TODO: Reafctor handleChange functions
 function Landlord({ fixture, setFixture }) {
   const [date, setDate] = useState(null);
   const { landlords, tenants, receipts } = fixture;
@@ -64,7 +65,9 @@ function Landlord({ fixture, setFixture }) {
       </option>
     );
   });
-
+  
+  // make ternary expression
+  // const tenantNodes = 
   const displayTenants = (landlordName) => {
     // receives selected landlord name from user
     const tenantList = Object.entries(tenants).filter(
