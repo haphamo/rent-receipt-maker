@@ -123,13 +123,7 @@ function Landlord({ fixture, setFixture }) {
       receipts: { ...receipts, [`${uuidv4()}`]: {...newReceipt, rentAmount: rentAmount * 100} },
     });
     // clear fields
-    setNewReceipt({
-      landlord: "",
-      tenant: "",
-      paymentMethod: "",
-      memo: "",
-      rentAmount: "",
-    });
+    setNewReceipt(newReceiptEntry);
   };
 
   return (
