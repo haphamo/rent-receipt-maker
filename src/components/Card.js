@@ -22,14 +22,27 @@ function Card({fixture}) {
   };
 
   const getAllLandlordProfiles = data.map(landlord => {
-    const { name, properties } = landlord;
+    const { name, properties, tenants } = landlord;
+
     // should contain actions to add a tenant and create a receipt
+    // conditional, if the tenant list is 0, add button to add a tenant
+
+    // map through tenants to get the tenant-address relationship
+
     return(
       <section key={uuidv4()}>
         <Identicon string={name} size="100" bg="#FCB900"/>
         <section id="landlord-name">{name}</section>
         <strong>Properties</strong>
-        {getAllPropertiesForALandlord(landlord)}
+        <section>
+          <address>{tenants[0].address} </address>
+        {tenants[0].name ? <strong>Tenant: {tenants[0].name}</strong> :
+        <strong>Add a tenant</strong> 
+        }
+
+        </section> 
+   
+        {/* {getAllPropertiesForALandlord(landlord)} */}
       </section>
     )
   });
