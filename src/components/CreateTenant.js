@@ -6,6 +6,16 @@ import Card from './Card.js';
 function CreateTenant({ fixture, setFixture }) {
   const { tenants, propertyAddresses } = fixture;
 
+  const intitialState = {
+    tenant: "",
+    landlord: "",
+    addressOfTenant: "",
+    rennt: "",
+    paymentMethod: "e-transfer"
+  };
+
+  const [newTenantEntry, setNewTenantEntry] = useState(intitialState);
+
   const [newTenant, setNewTenant] = useState("");
   const [landlord, setLandlord] = useState("");
   const [addressOfTenant, setAddressOfTenant] = useState("");
