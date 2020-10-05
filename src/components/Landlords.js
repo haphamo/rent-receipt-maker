@@ -16,6 +16,9 @@ function Landlords({ setFixture, fixture }) {
     const newLandlordEntry = {
       name: landlordName,
       properties: [address],
+      tenants: [{
+        address: address
+      }]
     };
 
     const newPropertyEntry = {
