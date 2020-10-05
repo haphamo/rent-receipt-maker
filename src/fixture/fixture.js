@@ -3,10 +3,30 @@ const data = {
     '123': {
       name: "Andrew Ly",
       properties: ["9 Spadina Avenue", "188 Bremnar Road"],
+      tenants: [
+        {
+          name: "Dimitri Gustavo",
+          address: "9 Spadina Avenue"
+        },
+        {
+          name: "Katerina",
+          address: "188 Bremnar Road"
+        },
+    ]
     },
     '456': {
       name: 'Ha Pham',
-      properties: ["300 Harvie Road", "200 Highway 7"]
+      properties: ["300 Harvie Road", "200 Highway 7"],
+      tenants: [
+        {
+          name: "Rob",
+          address: "300 Harvie Road"
+        },
+        {
+          name: "Senorita",
+          address: "200 Highway 7"
+        },
+      ]
     }
   },
   propertyAddresses: [
