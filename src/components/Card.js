@@ -1,12 +1,11 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import Identicon from 'react-identicons';
-import Landlord from "./Receipt";
 
 // TODO: Change the styling, the left section will be avatar and name
 function Card({fixture}) {
-  const { landlords, tenants } = fixture;
-  const data = Object.values(fixture.landlords);
+  const { landlords } = fixture;
+  const data = Object.values(landlords);
 
   const styles = {
     container: {
@@ -15,14 +14,13 @@ function Card({fixture}) {
     }
   };
 
-  // need to add key prop
-  const getAllPropertiesForALandlord = (landlordEntry) => {
-    const { properties } = landlordEntry;
-    return (properties.map(property => (<address key={uuidv4()}>{property}</address>)))
-  };
+  // const getAllPropertiesForALandlord = (landlordEntry) => {
+  //   const { properties } = landlordEntry;
+  //   return (properties.map(property => (<address key={uuidv4()}>{property}</address>)))
+  // };
 
   const getAllLandlordProfiles = data.map(landlord => {
-    const { name, properties, tenants } = landlord;
+    const { name, tenants } = landlord;
 
     // should contain actions to add a tenant and create a receipt
     // conditional, if the tenant list is 0, add button to add a tenant

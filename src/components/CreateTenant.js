@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 // ToDo; Add logic in the rent input to only allow numbers, no text/special charas, spaces
 
 function CreateTenant({ fixture, setFixture }) {
-  const { tenants, propertyAddresses, landlords } = fixture;
+  const { tenants, propertyAddresses } = fixture;
 
   const intitialState = {
     id: uuidv4(),
@@ -15,7 +15,7 @@ function CreateTenant({ fixture, setFixture }) {
   };
 
   const [newTenantEntry, setNewTenantEntry] = useState(intitialState);
-  const { tenant, landlord, address, rentAmount, paymentMethod } = newTenantEntry;
+  const { tenant, address, rentAmount, paymentMethod } = newTenantEntry;
 
   // One function which handles field changes
   const handleChange = (evt) => {
@@ -34,6 +34,8 @@ function CreateTenant({ fixture, setFixture }) {
       case 'payment-method':
         setNewTenantEntry({...newTenantEntry, paymentMethod: value});
         break;
+      default:
+        throw new Error("Error creating new tenant!")
     }
   };
 
@@ -63,7 +65,7 @@ function CreateTenant({ fixture, setFixture }) {
 
   const getAllTenants = () => (
     Object.entries(tenants).map(tenant => {
-      const { address, landlord, paymentMethod, rentAmount } = tenant[1];
+      const { address, rentAmount } = tenant[1];
       return (
         <section key={uuidv4()} style={{border: '1px solid grey'}}>
           <p>Tenant Name: {tenant[0]}</p>
