@@ -6,13 +6,13 @@ function Landlords({ setFixture, fixture }) {
   const { landlords, propertyAddresses } = fixture;
 
   const initialState = {
+    name: "",
     properties: [],
-    landlordName: "",
     tenants: []
   };
 
   const [newLandlordEntry, setNewLandlordEntry] = useState(initialState);
-  const { landlordName, properties } = newLandlordEntry;
+  const { name, landlordName, properties } = newLandlordEntry;
 
   const handleSubmitNewLandlord = (evt) => {
     evt.preventDefault();
@@ -22,7 +22,8 @@ function Landlords({ setFixture, fixture }) {
       address: properties,
       landlord: landlordName,
       tenants: []
-    }
+    };
+
     setFixture({
       ...fixture,
       landlords: {...landlords, [`${uuidv4()}`]: newLandlordEntry},
@@ -36,11 +37,13 @@ function Landlords({ setFixture, fixture }) {
     const { value, name } = evt.target;
     switch (name) {
       case "name":
-        setNewLandlordEntry({...newLandlordEntry, landlordName: value})
+        setNewLandlordEntry({...newLandlordEntry, name: value})
         break;
       case "address":
         setNewLandlordEntry({...newLandlordEntry, tenants: [{address: value}], properties: [value]})
         break;
+      default:
+        throw new Error("Error")
     }
   };
   
@@ -52,7 +55,7 @@ function Landlords({ setFixture, fixture }) {
           <input
             id="landlord-name"
             name="name"
-            value={landlordName}
+            value={name}
             onChange={handleChange}
             type="text"
             placeholder="Name"
