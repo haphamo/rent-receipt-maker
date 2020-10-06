@@ -2,48 +2,46 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Card from "./Card.js"
 
-// My profile component
 function Landlords({ setFixture, fixture }) {
   const { landlords, propertyAddresses } = fixture;
 
-  const [address, setAddress] = useState("");
-  const [landlordName, setLandlordName] = useState("");
+  const initialState = {
+    properties: [],
+    landlordName: "",
+    tenants: []
+  };
+
+  const [newLandlordEntry, setNewLandlordEntry] = useState(initialState);
+  const { landlordName, properties } = newLandlordEntry;
 
   const handleSubmitNewLandlord = (evt) => {
-    // this updates the data with new landlord and property entry
     evt.preventDefault();
-
-    const newLandlordEntry = {
-      name: landlordName,
-      properties: [address],
-      tenants: [{
-        address: address
-      }]
-    };
 
     const newPropertyEntry = {
       id: uuidv4(),
-      address: address,
+      address: properties,
       landlord: landlordName,
-    };
-
+      tenants: []
+    }
     setFixture({
       ...fixture,
       landlords: {...landlords, [`${uuidv4()}`]: newLandlordEntry},
       propertyAddresses: [...propertyAddresses, newPropertyEntry],
     });
-
     // clears text fields
-    setLandlordName("");
-    setAddress("");
+    setNewLandlordEntry(initialState);
   };
 
-  const handleNewLandlord = (evt) => {
-    setLandlordName(evt.target.value);
-  };
-
-  const handleAddress = (evt) => {
-    setAddress(evt.target.value);
+  const handleChange = evt => {
+    const { value, name } = evt.target;
+    switch (name) {
+      case "name":
+        setNewLandlordEntry({...newLandlordEntry, landlordName: value})
+        break;
+      case "address":
+        setNewLandlordEntry({...newLandlordEntry, tenants: [{address: value}], properties: [value]})
+        break;
+    }
   };
   
   return (
@@ -55,7 +53,7 @@ function Landlords({ setFixture, fixture }) {
             id="landlord-name"
             name="name"
             value={landlordName}
-            onChange={handleNewLandlord}
+            onChange={handleChange}
             type="text"
             placeholder="Name"
             required
@@ -66,8 +64,8 @@ function Landlords({ setFixture, fixture }) {
               name="address"
               type="text"
               placeholder="Address"
-              value={address}
-              onChange={handleAddress}
+              value={properties}
+              onChange={handleChange}
               required
             ></input>
           </address>
