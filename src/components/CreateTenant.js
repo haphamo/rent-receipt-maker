@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-import Card from './Card.js';
-import Landlord from "./Receipt.js";
 // ToDo; Add logic in the rent input to only allow numbers, no text/special charas, spaces
 
 function CreateTenant({ fixture, setFixture }) {
@@ -19,7 +17,7 @@ function CreateTenant({ fixture, setFixture }) {
   const [newTenantEntry, setNewTenantEntry] = useState(intitialState);
   const { tenant, landlord, address, rentAmount, paymentMethod } = newTenantEntry;
 
-  // Create one function to handle text field changes
+  // One function which handles field changes
   const handleChange = (evt) => {
     const { name, value } = evt.target;
     switch (name) {
@@ -134,8 +132,6 @@ function CreateTenant({ fixture, setFixture }) {
         <button type="submit">Add Tenant</button>
       </form>
       <section>
-        {/* <Card /> */}
-        {""}
         <h2>All Tenants</h2>
         {getAllTenants()}
       </section>
