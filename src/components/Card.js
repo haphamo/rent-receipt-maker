@@ -11,6 +11,9 @@ function Card({fixture}) {
     container: {
       border: 'solid 1px grey',
       textAlign: 'center'
+    },
+    landlordName: {
+      fontSize: '2em'
     }
   };
 
@@ -26,20 +29,18 @@ function Card({fixture}) {
     // conditional, if the tenant list is 0, add button to add a tenant
 
     // map through tenants to get the tenant-address relationship
-
+    // Add a tenant button should toggle the form
     return(
       <section key={uuidv4()}>
         <Identicon string={name} size="100" bg="#FCB900"/>
-        <section id="landlord-name">{name}</section>
+        <section id="landlord-name" style={styles.landlordName}>{name}</section>
         <strong>Properties</strong>
         <section>
           <address>{tenants[0].address} </address>
         {tenants[0].name ? <strong>Tenant: {tenants[0].name}</strong> :
-        <strong>Add a tenant</strong> 
+        <button>Add a tenant</button> 
         }
-
         </section> 
-   
         {/* {getAllPropertiesForALandlord(landlord)} */}
       </section>
     )
