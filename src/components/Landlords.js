@@ -4,6 +4,7 @@ import Card from "./Card.js"
 
 function Landlords({ setFixture, fixture }) {
   const { landlords, propertyAddresses } = fixture;
+  const [toggle, setToggle] = useState(false);
 
   const initialState = {
     name: "",
@@ -12,7 +13,7 @@ function Landlords({ setFixture, fixture }) {
   };
 
   const [newLandlordEntry, setNewLandlordEntry] = useState(initialState);
-  const { name, landlordName, properties } = newLandlordEntry;
+  const { name, properties } = newLandlordEntry;
 
   const handleSubmitNewLandlord = (evt) => {
     evt.preventDefault();
@@ -20,8 +21,7 @@ function Landlords({ setFixture, fixture }) {
     const newPropertyEntry = {
       id: uuidv4(),
       address: properties,
-      landlord: landlordName,
-      tenants: []
+      landlord: name,
     };
 
     setFixture({
@@ -31,6 +31,7 @@ function Landlords({ setFixture, fixture }) {
     });
     // clears text fields
     setNewLandlordEntry(initialState);
+    setToggle(!toggle)
   };
 
   const handleChange = evt => {
@@ -46,35 +47,38 @@ function Landlords({ setFixture, fixture }) {
         throw new Error("Error")
     }
   };
-  
+
   return (
     <section>
-      <h2>Create New Landlord Profile</h2>
-      <form onSubmit={handleSubmitNewLandlord}>
-        <label htmlFor="landlord-name">
-          <input
-            id="landlord-name"
-            name="name"
-            value={name}
-            onChange={handleChange}
-            type="text"
-            placeholder="Name"
-            required
-          ></input>
-          <address>
+      
+      {toggle ?
+        <form onSubmit={handleSubmitNewLandlord}>
+          <label htmlFor="landlord-name">
             <input
-              id="landlord-address"
-              name="address"
-              type="text"
-              placeholder="Address"
-              value={properties}
+              id="landlord-name"
+              name="name"
+              value={name}
               onChange={handleChange}
+              type="text"
+              placeholder="Name"
               required
             ></input>
-          </address>
-          <button type="submit">Add A Landlord</button>
-        </label>
-      </form>
+            <address>
+              <input
+                id="landlord-address"
+                name="address"
+                type="text"
+                placeholder="Address"
+                value={properties}
+                onChange={handleChange}
+                required
+              ></input>
+            </address>
+            <button type="submit">Add A Landlord</button>
+          </label>
+        </form> :
+        <button onClick={() => setToggle(!toggle)}>Add a new Landlord</button>
+      }
       <Card fixture={fixture}/>
     </section>
   );
