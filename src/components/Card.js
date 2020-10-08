@@ -10,10 +10,11 @@ function Card({fixture}) {
   const styles = {
     container: {
       border: 'solid 1px grey',
-      textAlign: 'center'
+      textAlign: 'center',
+      padding: '1em'
     },
     landlordName: {
-      fontSize: '2em'
+      fontSize: '1.2em'
     }
   };
 
@@ -31,16 +32,21 @@ function Card({fixture}) {
     // map through tenants to get the tenant-address relationship
     // Add a tenant button should toggle the form
     return(
-      <section key={uuidv4()}>
-        <Identicon string={name} size="100" bg="#FCB900"/>
-        <section id="landlord-name" style={styles.landlordName}>{name}</section>
-        <strong>Properties</strong>
-        <section>
-          <address>{tenants[0].address} </address>
-        {tenants[0].name ? <strong>Tenant: {tenants[0].name}</strong> :
-        <button>Add a tenant</button> 
-        }
-        </section> 
+      <section key={uuidv4()} style={{display: 'flex', marginBottom: '1em'}}>
+        <section style={{alignContent: 'center', flex: '20%'}}>
+          <Identicon string={name} size="100" bg="#FCB900"/>
+          <section id="landlord-name" style={styles.landlordName}>{name}</section>
+        </section>
+        <section style={{flex: '80%'}}>
+          {/* <strong>Properties</strong> */}
+          <section>
+            Property: <address>{tenants[0].address} </address>
+          {tenants[0].name ? <section>Tenant: {tenants[0].name}</section> :
+          <button>Add a tenant</button> 
+          }
+          </section> 
+
+        </section>
         {/* {getAllPropertiesForALandlord(landlord)} */}
       </section>
     )
